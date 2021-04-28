@@ -1,0 +1,12 @@
+body {
+    background: #18222b;
+    color: white;
+}
+
+h2 {
+    color: #b1b1b1;
+    font-size: 20px;
+    margin: 0;
+    padding: 5px;
+    transition: all 0.3s ease-in-out;
+}

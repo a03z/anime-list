@@ -1,0 +1,74 @@
+span {
+    color: #b1b1b1;
+    transition: all 0.3s ease-in-out;
+}
+a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.card {
+    display: grid;
+    place-items: center;
+    grid-template-rows: 150px 1fr 75px;
+    position: relative;
+
+    height: 600px;
+    flex-basis: 350px;
+
+    text-decoration: none;
+    color: white;
+    text-align: center;
+
+    background: rgb(76 76 76 / 12%);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(3px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    padding: 10px;
+}
+
+.card:hover h2 {
+    color: white;
+}
+.card:hover span {
+    color: white;
+}
+.card-title {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px 0px;
+}
+.card-title span {
+    font-size: 24px;
+}
+
+.card-info {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card-score {
+    font-weight: 600;
+    bottom: 25px;
+    position: absolute;
+}
+
+.container {
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.page-title {
+    text-align: center;
+    color: white;
+    font-size: 36px;
+}
