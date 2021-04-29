@@ -13,6 +13,7 @@
     "effector-react": "^21.3.2",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
+    "react-router-dom": "^5.2.0",
     "reseter.css": "^1.1.2"
   },
   "devDependencies": {
