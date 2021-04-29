@@ -3,38 +3,38 @@ import './sort.css'
 
 export const Sort = (props) => {
     const getByRating = () => {
-        props.getAnimeList('')
+        props.getAnimeList('', 'top')
     }
     const getByPopularity = () => {
-        props.getAnimeList('/bypopularity')
+        props.getAnimeList('/bypopularity', 'top')
     }
 
     const getFavorite = () => {
-        props.getAnimeList('/favorite')
+        props.getAnimeList('/favorite', 'top')
     }
 
     const getAiring = () => {
-        props.getAnimeList('/airing')
+        props.getAnimeList('/airing', 'top')
     }
 
     const getUpcoming = () => {
-        props.getAnimeList('/upcoming')
+        props.getAnimeList('/upcoming', 'top')
     }
 
     const getTv = () => {
-        props.getAnimeList('/tv')
+        props.getAnimeList('/tv', 'top')
     }
 
     const getMovie = () => {
-        props.getAnimeList('/movie')
+        props.getAnimeList('/movie', 'top')
     }
 
     const getOva = () => {
-        props.getAnimeList('/ova')
+        props.getAnimeList('/ova', 'top')
     }
 
     const getSpecial = () => {
-        props.getAnimeList('/special')
+        props.getAnimeList('/special', 'top')
     }
 
     return (

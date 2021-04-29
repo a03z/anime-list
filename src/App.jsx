@@ -15,44 +15,61 @@ function App() {
     const [list, setList] = useState([])
     let [page, setPage] = useState(1)
     let [sortType, setSortType] = useState('')
+    let [genre, setGenre] = useState('')
+    let [requestType, setRequestType] = useState('top')
 
-    const getAnimeList = async (subtype) => {
+    const getAnimeList = async (subtype, topOrGenre, genreId) => {
         setSortType(subtype)
+        setRequestType(topOrGenre)
+        setGenre(genreId)
+        let genre = genreId ? `/${genreId}` : ''
         const res = await axios.get(
-            `https://api.jikan.moe/v3/top/anime/${page}${subtype}`
+            `https://api.jikan.moe/v3/${requestType}/anime${genre}/${page}${subtype}`
         )
-        setList(res.data.top)
+        let resList = res.data.top ? res.data.top : res.data.anime
+        setList(resList)
+    }
+
+    const scrollToTop = () => {
+        if (window.pageYOffset > 0) {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
     }
 
     const nextPage = () => {
-        setPage(page++)
-        getAnimeList(sortType)
-        if (window.pageYOffset > 0) {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-        }
+        setPage(++page)
+        getAnimeList(sortType, requestType, genre)
+        scrollToTop()
     }
 
     const prevPage = () => {
-        setPage(page--)
-        getAnimeList(sortType)
-        if (window.pageYOffset > 0) {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-        }
+        setPage(--page)
+        getAnimeList(sortType, requestType, genre)
+        scrollToTop()
     }
 
     useEffect(() => {
-        getAnimeList('')
+        getAnimeList(sortType, requestType, genre)
     }, [])
 
     return (
         <div className="App">
             <Navbar />
-            <h1 className="page-title">Top Anime</h1>
-            <Sort getAnimeList={getAnimeList} />
-            <Route path="/genres" render={() => <Genres />} />
 
-            <List list={list} />
-            <Pagination prevPage={prevPage} nextPage={nextPage} />
+            <Sort setRequestType={setRequestType} getAnimeList={getAnimeList} />
+            <Route
+                path="/genres"
+                render={() => (
+                    <Genres
+                        setRequestType={setRequestType}
+                        list={list}
+                        setList={setList}
+                        getAnimeList={getAnimeList}
+                    />
+                )}
+            />
+
+            <List list={list} prevPage={prevPage} nextPage={nextPage} />
         </div>
     )
 }
