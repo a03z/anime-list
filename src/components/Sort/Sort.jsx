@@ -1,53 +1,65 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
+import { setSubtype } from '../../store/effector'
 import './sort.css'
 
-export const Sort = (props) => {
-    const getByRating = () => {
-        props.getAnimeList('', 'top')
-    }
-    const getByPopularity = () => {
-        props.getAnimeList('/bypopularity', 'top')
-    }
+export const Sort = props => {
+	const getByRating = () => {
+		setSubtype('/rating')
+		props.getAnimeListFx()
+	}
+	const getByPopularity = () => {
+		setSubtype('/bypopularity')
+		props.getAnimeListFx()
+	}
 
-    const getFavorite = () => {
-        props.getAnimeList('/favorite', 'top')
-    }
+	const getFavorite = () => {
+		setSubtype('/favorite')
+		props.getAnimeListFx()
+	}
 
-    const getAiring = () => {
-        props.getAnimeList('/airing', 'top')
-    }
+	const getAiring = () => {
+		setSubtype('/airing')
+		props.getAnimeListFx()
+	}
 
-    const getUpcoming = () => {
-        props.getAnimeList('/upcoming', 'top')
-    }
+	const getUpcoming = () => {
+		setSubtype('/upcoming')
+		props.getAnimeListFx()
+	}
 
-    const getTv = () => {
-        props.getAnimeList('/tv', 'top')
-    }
+	const getTv = () => {
+		setSubtype('/tv')
+		props.getAnimeListFx()
+	}
 
-    const getMovie = () => {
-        props.getAnimeList('/movie', 'top')
-    }
+	const getMovie = () => {
+		setSubtype('/movie')
+		props.getAnimeListFx()
+	}
 
-    const getOva = () => {
-        props.getAnimeList('/ova', 'top')
-    }
+	const getOva = () => {
+		setSubtype('/ova')
+		props.getAnimeListFx()
+	}
 
-    const getSpecial = () => {
-        props.getAnimeList('/special', 'top')
-    }
+	const getSpecial = () => {
+		setSubtype('/special')
+		props.getAnimeListFx()
+	}
 
-    return (
-        <div className="sort">
-            <span>Sort by</span>
-            <button onClick={getByRating}>Rating</button>
-            <button onClick={getByPopularity}>Popularity</button>
-            <button onClick={getFavorite}>Favorite</button>
-            <button onClick={getAiring}>Airing</button>
-            <button onClick={getTv}>Tv</button>
-            <button onClick={getMovie}>Movie</button>
-            <button onClick={getOva}>Ova</button>
-            <button onClick={getSpecial}>Special</button>
-        </div>
-    )
+	return (
+		<div className='sort'>
+			<span>Sort by</span>
+			<button onClick={getByRating}>Rating</button>
+			<button onClick={getByPopularity}>Popularity</button>
+			<button onClick={getFavorite}>Favorite</button>
+			<button onClick={getAiring}>Airing</button>
+			<button onClick={getUpcoming}>Upcoming</button>
+			<button onClick={getTv}>Tv</button>
+			<button onClick={getMovie}>Movie</button>
+			<button onClick={getOva}>Ova</button>
+			<button onClick={getSpecial}>Special</button>
+		</div>
+	)
 }
