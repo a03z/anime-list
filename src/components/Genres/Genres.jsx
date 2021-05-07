@@ -2,7 +2,7 @@
 import axios from 'axios'
 import s from './genres.module.scss'
 import React, { useEffect, useState } from 'react'
-import { setGenre } from './../../store/effector'
+import { setGenre, setPage } from './../../store/effector'
 
 export const Genres = props => {
 	const [genres, setGenres] = useState([])
@@ -23,6 +23,7 @@ export const Genres = props => {
 			{genres.map(el => (
 				<button
 					onClick={() => {
+						setPage(1)
 						setGenre(`/${el.mal_id}`)
 						props.getAnimeListFx()
 					}}

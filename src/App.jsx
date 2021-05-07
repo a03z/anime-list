@@ -42,8 +42,12 @@ function App() {
 
 	const prevPage = () => {
 		prevPageE()
-		getAnimeListFx(requestType, '', page, subtype)
-		scrollToTop()
+		if (page === 1) {
+			return
+		} else {
+			getAnimeListFx(requestType, '', page, subtype)
+			scrollToTop()
+		}
 	}
 
 	useEffect(() => {

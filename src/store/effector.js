@@ -2,11 +2,23 @@ import axios from 'axios'
 import { createApi, createEffect, createEvent, createStore } from 'effector'
 
 // страница запроса
-export const $page = createStore(1)
+export const setPage = createEvent()
+export const $page = createStore(1).on(setPage, (state, page) => {
+	state = page
+	return state
+})
 export const { nextPageE, prevPageE } = createApi($page, {
 	nextPageE: state => state + 1,
-	prevPageE: state => state - 1,
+	prevPageE: state => {
+		if (state > 1) {
+			return state - 1
+		} else {
+			return state
+		}
+	},
 })
+
+$page.watch(value => console.log(value))
 
 // тип запроса - сортировка аниме по жанру или по рейтингу
 export const setRequestType = createEvent()
@@ -34,6 +46,8 @@ export const $sortType = createStore('').on(setSortType, (state, sortType) => {
 // подтип сортировки
 export const setSubtype = createEvent()
 export const $subtype = createStore('').on(setSubtype, (state, subtype) => {
+	setRequestType('top')
+	setGenre('')
 	state = subtype
 	return state
 })
