@@ -10,34 +10,30 @@ import {
 	$page,
 	$requestType,
 	$subtype,
+	$list,
+	$isFetching,
 	nextPageE,
 	prevPageE,
 	setRequestType,
 	getAnimeListFx,
-	$list,
 } from './store/effector'
 import { useStore } from 'effector-react'
 import { Search } from './components/Search/Search'
+import { Preloader } from './features/Preloader/Preloader'
 
 function App() {
 	// effector
 	let page = useStore($page)
 	let requestType = useStore($requestType)
 	let subtype = useStore($subtype)
+	let isFetching = useStore($isFetching)
 
 	let list = useStore($list)
 	// --------------
 
-	const scrollToTop = () => {
-		if (window.pageYOffset > 0) {
-			window.scrollTo({ top: 0, behavior: 'smooth' })
-		}
-	}
-
 	const nextPage = () => {
 		nextPageE()
 		getAnimeListFx(requestType, '', page, subtype)
-		scrollToTop()
 	}
 
 	const prevPage = () => {
@@ -46,7 +42,6 @@ function App() {
 			return
 		} else {
 			getAnimeListFx(requestType, '', page, subtype)
-			scrollToTop()
 		}
 	}
 
@@ -54,31 +49,35 @@ function App() {
 		getAnimeListFx(requestType, '', page, subtype)
 	}, [])
 
-	return (
-		<div className='App'>
-			<Navbar />
-			<Sort getAnimeListFx={getAnimeListFx} />
-			<Route
-				path='/genres'
-				render={() => (
-					<Genres
-						setRequestType={setRequestType}
-						list={list}
-						page={page}
-						getAnimeListFx={getAnimeListFx}
-					/>
-				)}
-			/>
-			<Route path='/search' render={() => <Search />} />
+	if (isFetching) {
+		return <Preloader />
+	} else {
+		return (
+			<div className='App'>
+				<Navbar />
+				<Route path='/search' render={() => <Search />} />
+				<Sort getAnimeListFx={getAnimeListFx} />
+				<Route
+					path='/genres'
+					render={() => (
+						<Genres
+							setRequestType={setRequestType}
+							list={list}
+							page={page}
+							getAnimeListFx={getAnimeListFx}
+						/>
+					)}
+				/>
 
-			<List
-				page={page}
-				list={list}
-				prevPage={prevPage}
-				nextPage={nextPage}
-			/>
-		</div>
-	)
+				<List
+					page={page}
+					list={list}
+					prevPage={prevPage}
+					nextPage={nextPage}
+				/>
+			</div>
+		)
+	}
 }
 
 export default App

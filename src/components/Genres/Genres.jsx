@@ -2,14 +2,19 @@
 import axios from 'axios'
 import s from './genres.module.scss'
 import React, { useEffect, useState } from 'react'
-import { setGenre, setPage } from './../../store/effector'
+import {
+	getAnimeListFx,
+	setGenre,
+	setPage,
+	setRequestType,
+} from './../../store/effector'
 
-export const Genres = props => {
+export const Genres = () => {
 	const [genres, setGenres] = useState([])
 
 	const getGenreList = async () => {
 		const res = await axios.get(`https://api.jikan.moe/v4/genres/anime`)
-		props.setRequestType('genre')
+		setRequestType('genre')
 		setGenres(res.data.data)
 	}
 
@@ -25,7 +30,7 @@ export const Genres = props => {
 					onClick={() => {
 						setPage(1)
 						setGenre(`/${el.mal_id}`)
-						props.getAnimeListFx()
+						getAnimeListFx()
 					}}
 					key={el.mal_id}
 				>

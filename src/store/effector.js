@@ -18,8 +18,6 @@ export const { nextPageE, prevPageE } = createApi($page, {
 	},
 })
 
-$page.watch(value => console.log(value))
-
 // тип запроса - сортировка аниме по жанру или по рейтингу
 export const setRequestType = createEvent()
 export const $requestType = createStore('top').on(
@@ -51,16 +49,27 @@ export const $subtype = createStore('').on(setSubtype, (state, subtype) => {
 	state = subtype
 	return state
 })
+// загрузка
+export const setIsFetching = createEvent()
+export const $isFetching = createStore(false).on(
+	setIsFetching,
+	(state, isFetching) => {
+		state = isFetching
+		return state
+	}
+)
 
 // ------effects------
 
 // основной лист аниме
 
 export const getAnimeListFx = createEffect(async () => {
+	setIsFetching(true)
 	const res = await axios.get(
 		`https://api.jikan.moe/v3/${$requestType.getState()}/anime${$genre.getState()}/${$page.getState()}${$subtype.getState()}`
 	)
 	let resList = res.data.top ? res.data.top : res.data.anime
+	setIsFetching(false)
 	return resList
 })
 
@@ -73,10 +82,12 @@ export const $searchText = createStore('').on(setSearchText, (state, text) => {
 })
 
 export const searchAnimeListFx = createEffect(async () => {
+	setIsFetching(true)
 	const res = await axios.get(
 		`https://api.jikan.moe/v3/search/anime?q=${$searchText.getState()}&page=${$page.getState()}`
 	)
 	let resList = res.data.results
+	setIsFetching(false)
 	return resList
 })
 export const $list = createStore([])

@@ -3,6 +3,9 @@ nav ul {
 	flex-direction: column;
 	align-items: center;
 }
+a:hover {
+	color: #0072ff;
+}
 
 .pageTitle {
 	text-align: center;
@@ -22,4 +25,8 @@ nav ul {
 	&:hover {
 		text-decoration: underline;
 	}
+}
+
+.activeLink {
+	color: #0072ff;
 }

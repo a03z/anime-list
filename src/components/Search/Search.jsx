@@ -2,6 +2,7 @@ import React from 'react'
 import s from './search.module.scss'
 import { useForm } from 'react-hook-form'
 import { searchAnimeListFx, setSearchText } from '../../store/effector'
+import { ExclamationCircleIcon, SearchIcon } from '@heroicons/react/outline'
 
 export const Search = () => {
 	const {
@@ -16,15 +17,25 @@ export const Search = () => {
 	return (
 		<>
 			<form className={s.search} onSubmit={handleSubmit(onSubmit)}>
-				<input
-					className={s.searchInput}
-					{...register('searchAnime')}
-					placeholder='Search...'
-				/>
+				<div className={s.searchContainer}>
+					<input
+						className={s.searchInput}
+						{...register('searchAnime', { required: true })}
+						placeholder='Search...'
+					/>
 
-				{errors.searchAnime && <span>This field is required</span>}
+					{errors.searchAnime && (
+						<span className={s.errorSpan}>
+							<ExclamationCircleIcon
+								className={s.errorSpanIcon}
+							/>
+						</span>
+					)}
 
-				<input type='submit' />
+					<button type='submit' className={s.searchBtn}>
+						<SearchIcon className={s.searchIcon} />
+					</button>
+				</div>
 			</form>
 		</>
 	)

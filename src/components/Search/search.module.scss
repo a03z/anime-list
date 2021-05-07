@@ -1,8 +1,43 @@
 .search {
 	display: flex;
-	width: 60%;
+	width: 50%;
 	margin: 0 auto;
 	&Input {
 		width: 100%;
+		border: 0;
+		border-radius: 10px 0 0 10px;
+		border-right: 0;
+		&:focus {
+			outline: none;
+		}
+		&::placeholder {
+			color: #8f95d8;
+		}
+	}
+	& button {
+		border: 0;
+		color: #8f95d8;
+		padding: 0;
+	}
+	&Icon {
+		width: 25px;
+	}
+	&Container {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		border-radius: 10px;
+		padding: 0 20px;
+		border: 1px solid #8f95d8;
+	}
+}
+
+.errorSpan {
+	height: auto;
+	padding: 0;
+	margin-right: 15px;
+	&Icon {
+		width: 25px;
+		color: red;
 	}
 }

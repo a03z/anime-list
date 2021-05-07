@@ -7,17 +7,25 @@ export const Navbar = () => {
 		<nav>
 			<ul>
 				<li>
-					<NavLink to='/' className={s.pageTitle}>
+					<NavLink to='/top' className={s.pageTitle}>
 						Top Anime
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to='/genres' className={s.navTitle}>
+					<NavLink
+						activeClassName={s.activeLink}
+						to='/genres'
+						className={s.navTitle}
+					>
 						Genres
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to='/search' className={s.navTitle}>
+					<NavLink
+						activeClassName={s.activeLink}
+						to='/search'
+						className={s.navTitle}
+					>
 						Search
 					</NavLink>
 				</li>
