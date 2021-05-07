@@ -25,11 +25,16 @@ export const Search = () => {
 					/>
 
 					{errors.searchAnime && (
-						<span className={s.errorSpan}>
-							<ExclamationCircleIcon
-								className={s.errorSpanIcon}
-							/>
-						</span>
+						<a title='this field is required'>
+							<span
+								title='This field is required'
+								className={s.errorSpan}
+							>
+								<ExclamationCircleIcon
+									className={s.errorSpanIcon}
+								/>
+							</span>
+						</a>
 					)}
 
 					<button type='submit' className={s.searchBtn}>

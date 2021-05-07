@@ -1,6 +1,6 @@
 .search {
 	display: flex;
-	width: 50%;
+	width: clamp(50%, 700px, 70%);
 	margin: 0 auto;
 	&Input {
 		width: 100%;
