@@ -31,15 +31,16 @@ export const $sortType = createStore('').on(setSortType, (state, sortType) => {
 	return state
 })
 
-$sortType.watch(value => {
-	console.log(value)
-})
 // подтип сортировки
 export const setSubtype = createEvent()
 export const $subtype = createStore('').on(setSubtype, (state, subtype) => {
 	state = subtype
 	return state
 })
+
+// ------effects------
+
+// основной лист аниме
 
 export const getAnimeListFx = createEffect(async () => {
 	const res = await axios.get(
@@ -48,7 +49,22 @@ export const getAnimeListFx = createEffect(async () => {
 	let resList = res.data.top ? res.data.top : res.data.anime
 	return resList
 })
-export const $list = createStore([]).on(
-	getAnimeListFx.doneData,
-	(_, list) => list
-)
+
+// поиск
+export const setSearchText = createEvent()
+
+export const $searchText = createStore('').on(setSearchText, (state, text) => {
+	state = text
+	return state
+})
+
+export const searchAnimeListFx = createEffect(async () => {
+	const res = await axios.get(
+		`https://api.jikan.moe/v3/search/anime?q=${$searchText.getState()}&page=${$page.getState()}`
+	)
+	let resList = res.data.results
+	return resList
+})
+export const $list = createStore([])
+	.on(getAnimeListFx.doneData, (_, list) => list)
+	.on(searchAnimeListFx.doneData, (_, list) => list)

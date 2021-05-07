@@ -17,6 +17,7 @@ import {
 	$list,
 } from './store/effector'
 import { useStore } from 'effector-react'
+import { Search } from './components/Search/Search'
 
 function App() {
 	// effector
@@ -25,7 +26,6 @@ function App() {
 	let subtype = useStore($subtype)
 
 	let list = useStore($list)
-	console.log(list)
 	// --------------
 
 	const scrollToTop = () => {
@@ -65,6 +65,8 @@ function App() {
 					/>
 				)}
 			/>
+			<Route path='/search' render={() => <Search />} />
+
 			<List
 				page={page}
 				list={list}

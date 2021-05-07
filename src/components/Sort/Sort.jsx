@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { setSubtype } from '../../store/effector'
-import './sort.css'
+import s from './sort.module.scss'
 
 export const Sort = props => {
 	const getByRating = () => {
-		setSubtype('/rating')
+		setSubtype('')
 		props.getAnimeListFx()
 	}
 	const getByPopularity = () => {
@@ -49,7 +49,7 @@ export const Sort = props => {
 	}
 
 	return (
-		<div className='sort'>
+		<div className={s.sort}>
 			<span>Sort by</span>
 			<button onClick={getByRating}>Rating</button>
 			<button onClick={getByPopularity}>Popularity</button>

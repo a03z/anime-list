@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import axios from 'axios'
-import './genres.css'
+import s from './genres.module.scss'
 import React, { useEffect, useState } from 'react'
 import { setGenre } from './../../store/effector'
 
@@ -18,7 +18,7 @@ export const Genres = props => {
 	}, [])
 
 	return (
-		<div className='genres'>
+		<div className={s.genres}>
 			<span>Genres</span>
 			{genres.map(el => (
 				<button

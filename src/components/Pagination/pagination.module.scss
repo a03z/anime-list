@@ -1,0 +1,22 @@
+.pagination {
+	display: flex;
+	justify-content: center;
+	width: 60%;
+	margin: 25px auto;
+	align-items: center;
+	font-size: 24px;
+}
+
+.changePage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 40px;
+	width: 40px;
+	margin: 0 10px;
+	color: white;
+	& svg {
+		height: 40px;
+		width: 40px;
+	}
+}

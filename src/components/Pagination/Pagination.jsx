@@ -1,15 +1,16 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
-import './pagination.css'
+import s from './pagination.module.scss'
 
-export const Pagination = (props) => {
+export const Pagination = props => {
 	return (
-		<div className='pagination'>
-			<button className='changePage' onClick={props.prevPage}>
+		<div className={s.pagination}>
+			<button className={s.changePage} onClick={props.prevPage}>
 				<ChevronLeftIcon />
 			</button>
 			{props.page}
-			<button className='changePage' onClick={props.nextPage}>
+			<button className={s.changePage} onClick={props.nextPage}>
 				<ChevronRightIcon />
 			</button>
 		</div>
