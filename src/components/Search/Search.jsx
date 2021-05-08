@@ -16,7 +16,11 @@ export const Search = () => {
 	}
 	return (
 		<>
-			<form className={s.search} onSubmit={handleSubmit(onSubmit)}>
+			<form
+				autoComplete='off'
+				className={s.search}
+				onSubmit={handleSubmit(onSubmit)}
+			>
 				<div className={s.searchContainer}>
 					<input
 						className={s.searchInput}
