@@ -1,5 +1,12 @@
 import axios from 'axios'
-import { createApi, createEffect, createEvent, createStore } from 'effector'
+import {
+	attach,
+	combine,
+	createApi,
+	createEffect,
+	createEvent,
+	createStore,
+} from 'effector'
 
 // страница запроса
 export const setPage = createEvent()
@@ -49,28 +56,32 @@ export const $subtype = createStore('').on(setSubtype, (state, subtype) => {
 	state = subtype
 	return state
 })
-// загрузка
-export const setIsFetching = createEvent()
-export const $isFetching = createStore(false).on(
-	setIsFetching,
-	(state, isFetching) => {
-		state = isFetching
-		return state
-	}
-)
 
 // ------effects------
 
 // основной лист аниме
 
-export const getAnimeListFx = createEffect(async () => {
-	setIsFetching(true)
-	const res = await axios.get(
-		`https://api.jikan.moe/v3/${$requestType.getState()}/anime${$genre.getState()}/${$page.getState()}${$subtype.getState()}`
-	)
-	let resList = res.data.top ? res.data.top : res.data.anime
-	setIsFetching(false)
-	return resList
+export const getAnimeListBaseFx = createEffect(
+	async ({ requestType, genre, page, subtype }) => {
+		setIsFetching(true)
+		const res = await axios.get(
+			`https://api.jikan.moe/v3/${requestType}/anime${genre}/${page}${subtype}`
+		)
+		let resList = res.data.top ? res.data.top : res.data.anime
+		setIsFetching(false)
+		return resList
+	}
+)
+
+export const getAnimeListFx = attach({
+	source: combine({
+		requestType: $requestType,
+		genre: $genre,
+		page: $page,
+		subtype: $subtype,
+	}),
+	mapParams: (params, source) => source,
+	effect: getAnimeListBaseFx,
 })
 
 // поиск
@@ -82,14 +93,19 @@ export const $searchText = createStore('').on(setSearchText, (state, text) => {
 })
 
 export const searchAnimeListFx = createEffect(async () => {
-	setIsFetching(true)
 	const res = await axios.get(
 		`https://api.jikan.moe/v3/search/anime?q=${$searchText.getState()}&page=${$page.getState()}`
 	)
 	let resList = res.data.results
-	setIsFetching(false)
 	return resList
 })
+
+// загрузка
+export const setIsFetching = createEvent()
+export const $isFetching = combine(
+	[getAnimeListFx.pending, searchAnimeListFx.pending],
+	pendings => pendings.some(Boolean)
+)
 export const $list = createStore([])
-	.on(getAnimeListFx.doneData, (_, list) => list)
+	.on(getAnimeListBaseFx.doneData, (_, list) => list)
 	.on(searchAnimeListFx.doneData, (_, list) => list)

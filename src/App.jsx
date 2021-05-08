@@ -8,8 +8,6 @@ import { Route } from 'react-router-dom'
 import { Navbar } from './components/Navbar/Navbar'
 import {
 	$page,
-	$requestType,
-	$subtype,
 	$list,
 	$isFetching,
 	nextPageE,
@@ -24,8 +22,6 @@ import { Preloader } from './features/Preloader/Preloader'
 function App() {
 	// effector
 	let page = useStore($page)
-	let requestType = useStore($requestType)
-	let subtype = useStore($subtype)
 	let isFetching = useStore($isFetching)
 
 	let list = useStore($list)
@@ -33,7 +29,7 @@ function App() {
 
 	const nextPage = () => {
 		nextPageE()
-		getAnimeListFx(requestType, '', page, subtype)
+		getAnimeListFx()
 	}
 
 	const prevPage = () => {
@@ -41,12 +37,12 @@ function App() {
 		if (page === 1) {
 			return
 		} else {
-			getAnimeListFx(requestType, '', page, subtype)
+			getAnimeListFx()
 		}
 	}
 
 	useEffect(() => {
-		getAnimeListFx(requestType, '', page, subtype)
+		getAnimeListFx()
 	}, [])
 
 	if (isFetching) {
