@@ -4,6 +4,7 @@ import s from './genres.module.scss'
 import React, { useEffect, useState } from 'react'
 import {
 	getAnimeListFx,
+	setEffectType,
 	setGenre,
 	setPage,
 	setRequestType,
@@ -19,6 +20,7 @@ export const Genres = () => {
 	}
 
 	useEffect(() => {
+		setEffectType('getAnime')
 		getGenreList()
 	}, [])
 

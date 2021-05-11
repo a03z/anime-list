@@ -11,8 +11,7 @@ import {
 // страница запроса
 export const setPage = createEvent()
 export const $page = createStore(1).on(setPage, (state, page) => {
-	state = page
-	return state
+	return (state = page)
 })
 export const { nextPageE, prevPageE } = createApi($page, {
 	nextPageE: state => state + 1,
@@ -30,22 +29,19 @@ export const setRequestType = createEvent()
 export const $requestType = createStore('top').on(
 	setRequestType,
 	(state, requestType) => {
-		state = requestType
-		return state
+		return (state = requestType)
 	}
 )
 
 // айди жанра
 export const setGenre = createEvent()
 export const $genre = createStore('').on(setGenre, (state, genreId) => {
-	state = genreId
-	return state
+	return (state = genreId)
 })
 // тип сортировки
 export const setSortType = createEvent()
 export const $sortType = createStore('').on(setSortType, (state, sortType) => {
-	state = sortType
-	return state
+	return (state = sortType)
 })
 
 // подтип сортировки
@@ -53,15 +49,15 @@ export const setSubtype = createEvent()
 export const $subtype = createStore('').on(setSubtype, (state, subtype) => {
 	setRequestType('top')
 	setGenre('')
-	state = subtype
-	return state
+
+	return (state = subtype)
 })
 
 // ------effects------
 
 // основной лист аниме
 
-export const getAnimeListBaseFx = createEffect(
+const getAnimeListBaseFx = createEffect(
 	async ({ requestType, genre, page, subtype }) => {
 		setIsFetching(true)
 		const res = await axios.get(
@@ -88,17 +84,32 @@ export const getAnimeListFx = attach({
 export const setSearchText = createEvent()
 
 export const $searchText = createStore('').on(setSearchText, (state, text) => {
-	state = text
-	return state
+	return (state = text)
 })
 
-export const searchAnimeListFx = createEffect(async () => {
+const searchAnimeListFxBase = createEffect(async ({ page, searchText }) => {
 	const res = await axios.get(
-		`https://api.jikan.moe/v3/search/anime?q=${$searchText.getState()}&page=${$page.getState()}`
+		`https://api.jikan.moe/v3/search/anime?q=${searchText}&page=${page}`
 	)
-	let resList = res.data.results
-	return resList
+	return res.data.results
 })
+
+export const searchAnimeListFx = attach({
+	source: combine({
+		searchText: $searchText,
+		page: $page,
+	}),
+	mapParams: (params, source) => source,
+	effect: searchAnimeListFxBase,
+})
+
+export const setEffectType = createEvent()
+export const $effectType = createStore('getAnime').on(
+	setEffectType,
+	(state, type) => {
+		return (state = type)
+	}
+)
 
 // загрузка
 export const setIsFetching = createEvent()

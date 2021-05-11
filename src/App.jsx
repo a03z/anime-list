@@ -14,6 +14,8 @@ import {
 	prevPageE,
 	setRequestType,
 	getAnimeListFx,
+	$effectType,
+	searchAnimeListFx,
 } from './store/effector'
 import { useStore } from 'effector-react'
 import { Search } from './components/Search/Search'
@@ -23,13 +25,14 @@ function App() {
 	// effector
 	let page = useStore($page)
 	let isFetching = useStore($isFetching)
+	let effectType = useStore($effectType)
 
 	let list = useStore($list)
 	// --------------
 
 	const nextPage = () => {
 		nextPageE()
-		getAnimeListFx()
+		effectType === 'getAnime' ? getAnimeListFx() : searchAnimeListFx()
 	}
 
 	const prevPage = () => {
@@ -37,7 +40,7 @@ function App() {
 		if (page === 1) {
 			return
 		} else {
-			getAnimeListFx()
+			effectType === 'getAnime' ? getAnimeListFx() : searchAnimeListFx()
 		}
 	}
 
