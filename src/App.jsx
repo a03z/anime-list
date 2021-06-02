@@ -44,9 +44,11 @@ function App() {
 	} else {
 		return (
 			<div className='App'>
-				<Navbar />
-				<Route path='/search' render={() => <Search />} />
-				<Sort getAnimeListFx={getAnimeListFx} />
+				<header>
+					<Navbar />
+					<Route path='/search' render={() => <Search />} />
+					<Sort getAnimeListFx={getAnimeListFx} />
+				</header>
 
 				<Route exact path='/search' render={() => <List page={page} list={list} prevPage={prevPage} nextPage={nextPage} />} />
 				<Route path='/genres' render={() => <Genres setRequestType={setRequestType} list={list} page={page} getAnimeListFx={getAnimeListFx} />} />

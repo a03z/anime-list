@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import s from './animepage.module.scss'
 import { useStore } from 'effector-react'
@@ -8,13 +7,27 @@ import { CheckIcon, SpeakerphoneIcon, StopIcon } from '@heroicons/react/solid'
 
 export const AnimePage = () => {
 	let exactAnime = useStore($exactAnime)
-
-	if (exactAnime === {}) {
+	const isObjectEmpty = obj => {
+		for (var i in obj) return false
+		return true
+	}
+	if (isObjectEmpty(exactAnime)) {
 		return <Redirect to='/' />
 	} else {
 		return (
 			<div className={s.card}>
-				<img src={exactAnime.image_url} alt='anime image' />
+				<div className={s.img}>
+					<img src={exactAnime.image_url} alt='anime image' />
+					<div className={s.alternativeTitles}>
+						<h3>Alternative titles</h3>
+						<p>
+							<span>English:</span> {exactAnime.title_english}
+						</p>
+						<p>
+							<span>Japanese:</span> {exactAnime.title_japanese}
+						</p>
+					</div>
+				</div>
 				<div className={s.description}>
 					<a href={exactAnime.url} target='_blank' rel='noreferrer' className={s.title}>
 						{exactAnime.title}
@@ -50,6 +63,10 @@ export const AnimePage = () => {
 							<span>Members: {exactAnime.members}</span>
 							<span>Favorites: {exactAnime.favorites}</span>
 						</div>
+					</div>
+					<div className={s.synopsis}>
+						<h3>Synopsis</h3>
+						<p>{exactAnime.synopsis}</p>
 					</div>
 				</div>
 			</div>
