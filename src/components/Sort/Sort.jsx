@@ -1,69 +1,51 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
-import { setEffectType, setPage, setSubtype } from '../../store/effector'
+import { useHistory } from 'react-router'
+import { getAnimeListFx, setEffectType, setPage, setSubtype } from '../../store/effector'
 import s from './sort.module.scss'
 
-export const Sort = props => {
-	const getByRating = () => {
+export const Sort = () => {
+	const history = useHistory()
+	const getSorted = subtype => {
 		setPage(1)
-		setSubtype('')
+		setSubtype(subtype)
 		setEffectType('getAnime')
-		props.getAnimeListFx()
+		history.push('/')
+		getAnimeListFx()
+	}
+
+	const getByRating = () => {
+		getSorted('')
 	}
 	const getByPopularity = () => {
-		setPage(1)
-		setSubtype('/bypopularity')
-		setEffectType('getAnime')
-		props.getAnimeListFx()
+		getSorted('/bypopularity')
 	}
 
 	const getFavorite = () => {
-		setPage(1)
-		setSubtype('/favorite')
-		setEffectType('getAnime')
-		props.getAnimeListFx()
+		getSorted('/favorite')
 	}
 
 	const getAiring = () => {
-		setPage(1)
-		setSubtype('/airing')
-		setEffectType('getAnime')
-		props.getAnimeListFx()
+		getSorted('/airing')
 	}
 
 	const getUpcoming = () => {
-		setPage(1)
-		setSubtype('/upcoming')
-		setEffectType('getAnime')
-		props.getAnimeListFx()
+		getSorted('/upcoming')
 	}
 
 	const getTv = () => {
-		setPage(1)
-		setSubtype('/tv')
-		setEffectType('getAnime')
-		props.getAnimeListFx()
+		getSorted('/tv')
 	}
 
 	const getMovie = () => {
-		setPage(1)
-		setSubtype('/movie')
-		setEffectType('getAnime')
-		props.getAnimeListFx()
+		getSorted('/movie')
 	}
 
 	const getOva = () => {
-		setPage(1)
-		setSubtype('/ova')
-		setEffectType('getAnime')
-		props.getAnimeListFx()
+		getSorted('/ova')
 	}
 
 	const getSpecial = () => {
-		setPage(1)
-		setSubtype('/special')
-		setEffectType('getAnime')
-		props.getAnimeListFx()
+		getSorted('/special')
 	}
 
 	return (

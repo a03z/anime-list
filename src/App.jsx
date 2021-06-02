@@ -6,20 +6,11 @@ import { Sort } from './components/Sort/Sort'
 import { Genres } from './components/Genres/Genres'
 import { Route } from 'react-router-dom'
 import { Navbar } from './components/Navbar/Navbar'
-import {
-	$page,
-	$list,
-	$isFetching,
-	nextPageE,
-	prevPageE,
-	setRequestType,
-	getAnimeListFx,
-	$effectType,
-	searchAnimeListFx,
-} from './store/effector'
+import { $page, $list, $isFetching, nextPageE, prevPageE, setRequestType, getAnimeListFx, $effectType, searchAnimeListFx } from './store/effector'
 import { useStore } from 'effector-react'
 import { Search } from './components/Search/Search'
 import { Preloader } from './features/Preloader/Preloader'
+import { AnimePage } from './components/AnimePage/AnimePage'
 
 function App() {
 	// effector
@@ -56,24 +47,12 @@ function App() {
 				<Navbar />
 				<Route path='/search' render={() => <Search />} />
 				<Sort getAnimeListFx={getAnimeListFx} />
-				<Route
-					path='/genres'
-					render={() => (
-						<Genres
-							setRequestType={setRequestType}
-							list={list}
-							page={page}
-							getAnimeListFx={getAnimeListFx}
-						/>
-					)}
-				/>
 
-				<List
-					page={page}
-					list={list}
-					prevPage={prevPage}
-					nextPage={nextPage}
-				/>
+				<Route exact path='/search' render={() => <List page={page} list={list} prevPage={prevPage} nextPage={nextPage} />} />
+				<Route path='/genres' render={() => <Genres setRequestType={setRequestType} list={list} page={page} getAnimeListFx={getAnimeListFx} />} />
+				<Route path='/anime/:animeId?' render={() => <AnimePage />} />
+				<Route exact path='/' render={() => <List page={page} list={list} prevPage={prevPage} nextPage={nextPage} />} />
+				<Route exact path='/top' render={() => <List page={page} list={list} prevPage={prevPage} nextPage={nextPage} />} />
 			</div>
 		)
 	}

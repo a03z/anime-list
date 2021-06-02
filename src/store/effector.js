@@ -53,6 +53,25 @@ export const $subtype = createStore('').on(setSubtype, (state, subtype) => {
 	return (state = subtype)
 })
 
+// anime id
+export const setAnimeId = createEvent()
+export const $animeId = createStore(1).on(
+	setAnimeId,
+	(state, id) => (state = id)
+)
+
+export const setAnimeParameter = createEvent()
+export const setAnimeRequest = createEvent()
+
+const $animeRequest = createStore('').on(
+	setAnimeParameter,
+	(state, parameter) => (state = parameter)
+)
+const $animeParameter = createStore('').on(
+	setAnimeRequest,
+	(state, request) => (state = request)
+)
+
 // ------effects------
 
 // основной лист аниме
@@ -63,7 +82,7 @@ const getAnimeListBaseFx = createEffect(
 		const res = await axios.get(
 			`https://api.jikan.moe/v3/${requestType}/anime${genre}/${page}${subtype}`
 		)
-		let resList = res.data.top ? res.data.top : res.data.anime
+		const resList = res.data.top ? res.data.top : res.data.anime
 		setIsFetching(false)
 		return resList
 	}
@@ -111,12 +130,39 @@ export const $effectType = createStore('getAnime').on(
 	}
 )
 
+// конкретное аниме
+
+const getExactAnimeBaseFx = createEffect(async ({ id, request, parameter }) => {
+	const res = await axios.get(
+		`https://api.jikan.moe/v3/anime/${id}${request}${parameter}`
+	)
+	return res.data
+})
+
+export const getExactAnimeFx = attach({
+	source: combine({
+		id: $animeId,
+		request: $animeRequest,
+		parameter: $animeParameter,
+	}),
+	mapParams: (params, source) => source,
+	effect: getExactAnimeBaseFx,
+})
+export const $exactAnime = createStore({}).on(
+	getExactAnimeFx.doneData,
+	(_, data) => data
+)
 // загрузка
 export const setIsFetching = createEvent()
 export const $isFetching = combine(
-	[getAnimeListFx.pending, searchAnimeListFx.pending],
+	[
+		getAnimeListFx.pending,
+		searchAnimeListFx.pending,
+		getExactAnimeFx.pending,
+	],
 	pendings => pendings.some(Boolean)
 )
+
 export const $list = createStore([])
 	.on(getAnimeListBaseFx.doneData, (_, list) => list)
 	.on(searchAnimeListFx.doneData, (_, list) => list)

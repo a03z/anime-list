@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { getExactAnimeFx, setAnimeId } from '../../store/effector'
 import { Pagination } from '../Pagination/Pagination'
 import s from './list.module.scss'
 
-export let List = props => (
+export const List = props => (
 	<>
 		<Pagination
 			page={props.page}
@@ -12,12 +14,16 @@ export let List = props => (
 		/>
 		<div className={s.container}>
 			{props.list.map(el => (
-				<a
+				<NavLink
 					href={el.url}
 					key={el.mal_id}
 					className={s.card}
-					target='_blank'
 					rel='noreferrer'
+					to={`/anime/${el.mal_id}`}
+					onClick={() => {
+						setAnimeId(el.mal_id)
+						getExactAnimeFx()
+					}}
 				>
 					<h2>{el.title}</h2>
 
@@ -25,7 +31,7 @@ export let List = props => (
 					<div className={s.cardInfo}>
 						<span className={s.cardScore}>Rating: {el.score}</span>
 					</div>
-				</a>
+				</NavLink>
 			))}
 		</div>
 	</>
