@@ -1,17 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { getExactAnimeFx, setAnimeId } from '../../store/effector'
+import { getExactAnimeFx } from '../../store/effector'
 import { Pagination } from '../Pagination/Pagination'
 import s from './list.module.scss'
 
 export const List = props => (
 	<>
-		<Pagination
-			page={props.page}
-			prevPage={props.prevPage}
-			nextPage={props.nextPage}
-		/>
+		<Pagination page={props.page} prevPage={props.prevPage} nextPage={props.nextPage} />
 		<div className={s.container}>
 			{props.list.map(el => (
 				<NavLink
@@ -21,10 +17,8 @@ export const List = props => (
 					rel='noreferrer'
 					to={`/anime/${el.mal_id}`}
 					onClick={() => {
-						setAnimeId(el.mal_id)
 						getExactAnimeFx()
-					}}
-				>
+					}}>
 					<h2>{el.title}</h2>
 
 					<img src={el.image_url} alt={`${el.title} image`} />

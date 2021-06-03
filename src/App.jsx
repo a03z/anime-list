@@ -47,11 +47,19 @@ function App() {
 				<header>
 					<Navbar />
 					<Route path='/search' render={() => <Search />} />
-					<Sort getAnimeListFx={getAnimeListFx} />
+					<Sort />
 				</header>
 
 				<Route exact path='/search' render={() => <List page={page} list={list} prevPage={prevPage} nextPage={nextPage} />} />
-				<Route path='/genres' render={() => <Genres setRequestType={setRequestType} list={list} page={page} getAnimeListFx={getAnimeListFx} />} />
+				<Route
+					path='/genres'
+					render={() => (
+						<>
+							<Genres setRequestType={setRequestType} list={list} page={page} />
+							<List page={page} list={list} prevPage={prevPage} nextPage={nextPage} />
+						</>
+					)}
+				/>
 				<Route path='/anime/:animeId?' render={() => <AnimePage />} />
 				<Route exact path='/' render={() => <List page={page} list={list} prevPage={prevPage} nextPage={nextPage} />} />
 				<Route exact path='/top' render={() => <List page={page} list={list} prevPage={prevPage} nextPage={nextPage} />} />

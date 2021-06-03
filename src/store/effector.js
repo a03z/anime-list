@@ -1,12 +1,5 @@
 import axios from 'axios'
-import {
-	attach,
-	combine,
-	createApi,
-	createEffect,
-	createEvent,
-	createStore,
-} from 'effector'
+import { attach, combine, createApi, createEffect, createEvent, createStore } from 'effector'
 
 // страница запроса
 export const setPage = createEvent()
@@ -26,12 +19,9 @@ export const { nextPageE, prevPageE } = createApi($page, {
 
 // тип запроса - сортировка аниме по жанру или по рейтингу
 export const setRequestType = createEvent()
-export const $requestType = createStore('top').on(
-	setRequestType,
-	(state, requestType) => {
-		return (state = requestType)
-	}
-)
+export const $requestType = createStore('top').on(setRequestType, (state, requestType) => {
+	return (state = requestType)
+})
 
 // айди жанра
 export const setGenre = createEvent()
@@ -55,38 +45,25 @@ export const $subtype = createStore('').on(setSubtype, (state, subtype) => {
 
 // anime id
 export const setAnimeId = createEvent()
-export const $animeId = createStore(1).on(
-	setAnimeId,
-	(state, id) => (state = id)
-)
+export const $animeId = createStore(1).on(setAnimeId, (state, id) => (state = id))
 
 export const setAnimeParameter = createEvent()
 export const setAnimeRequest = createEvent()
 
-const $animeRequest = createStore('').on(
-	setAnimeParameter,
-	(state, parameter) => (state = parameter)
-)
-const $animeParameter = createStore('').on(
-	setAnimeRequest,
-	(state, request) => (state = request)
-)
+const $animeRequest = createStore('').on(setAnimeParameter, (state, parameter) => (state = parameter))
+const $animeParameter = createStore('').on(setAnimeRequest, (state, request) => (state = request))
 
 // ------effects------
 
 // основной лист аниме
 
-const getAnimeListBaseFx = createEffect(
-	async ({ requestType, genre, page, subtype }) => {
-		setIsFetching(true)
-		const res = await axios.get(
-			`https://api.jikan.moe/v3/${requestType}/anime${genre}/${page}${subtype}`
-		)
-		const resList = res.data.top ? res.data.top : res.data.anime
-		setIsFetching(false)
-		return resList
-	}
-)
+const getAnimeListBaseFx = createEffect(async ({ requestType, genre, page, subtype }) => {
+	setIsFetching(true)
+	const res = await axios.get(`https://api.jikan.moe/v3/${requestType}/anime${genre}/${page}${subtype}`)
+	const resList = res.data.top ? res.data.top : res.data.anime
+	setIsFetching(false)
+	return resList
+})
 
 export const getAnimeListFx = attach({
 	source: combine({
@@ -107,9 +84,7 @@ export const $searchText = createStore('').on(setSearchText, (state, text) => {
 })
 
 const searchAnimeListFxBase = createEffect(async ({ page, searchText }) => {
-	const res = await axios.get(
-		`https://api.jikan.moe/v3/search/anime?q=${searchText}&page=${page}`
-	)
+	const res = await axios.get(`https://api.jikan.moe/v3/search/anime?q=${searchText}&page=${page}`)
 	return res.data.results
 })
 
@@ -123,19 +98,14 @@ export const searchAnimeListFx = attach({
 })
 
 export const setEffectType = createEvent()
-export const $effectType = createStore('getAnime').on(
-	setEffectType,
-	(state, type) => {
-		return (state = type)
-	}
-)
+export const $effectType = createStore('getAnime').on(setEffectType, (state, type) => {
+	return (state = type)
+})
 
 // конкретное аниме
 
 const getExactAnimeBaseFx = createEffect(async ({ id, request, parameter }) => {
-	const res = await axios.get(
-		`https://api.jikan.moe/v3/anime/${id}${request}${parameter}`
-	)
+	const res = await axios.get(`https://api.jikan.moe/v3/anime/${id}${request}${parameter}`)
 	return res.data
 })
 
@@ -148,20 +118,14 @@ export const getExactAnimeFx = attach({
 	mapParams: (params, source) => source,
 	effect: getExactAnimeBaseFx,
 })
-export const $exactAnime = createStore({}).on(
-	getExactAnimeFx.doneData,
-	(_, data) => data
-)
+$animeId.watch(() => {
+	getExactAnimeFx()
+})
+
+export const $exactAnime = createStore({}).on(getExactAnimeFx.doneData, (_, data) => data)
 // загрузка
 export const setIsFetching = createEvent()
-export const $isFetching = combine(
-	[
-		getAnimeListFx.pending,
-		searchAnimeListFx.pending,
-		getExactAnimeFx.pending,
-	],
-	pendings => pendings.some(Boolean)
-)
+export const $isFetching = combine([getAnimeListFx.pending, searchAnimeListFx.pending, getExactAnimeFx.pending], pendings => pendings.some(Boolean))
 
 export const $list = createStore([])
 	.on(getAnimeListBaseFx.doneData, (_, list) => list)
