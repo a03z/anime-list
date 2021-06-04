@@ -1,14 +1,7 @@
-/* eslint-disable react/prop-types */
 import axios from 'axios'
 import s from './genres.module.scss'
 import React, { useEffect, useState } from 'react'
-import {
-	getAnimeListFx,
-	setEffectType,
-	setGenre,
-	setPage,
-	setRequestType,
-} from './../../store/effector'
+import { getAnimeListFx, setEffectType, setGenre, setPage, setRequestType } from './../../store/effector'
 
 export const Genres = () => {
 	const [genres, setGenres] = useState([])
@@ -34,8 +27,7 @@ export const Genres = () => {
 						setGenre(`/${el.mal_id}`)
 						getAnimeListFx()
 					}}
-					key={el.mal_id}
-				>
+					key={el.mal_id}>
 					{el.name}
 				</button>
 			))}
