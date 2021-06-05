@@ -1,7 +1,7 @@
 import axios from 'axios'
 import s from './genres.module.scss'
 import React, { useEffect, useState } from 'react'
-import { getAnimeListFx, setEffectType, setGenre, setPage, setRequestType } from './../../store/effector'
+import { getAnimeListFx, setEffectType, setGenre, setPage, setRequestType } from '../../entities/store/effector'
 
 export const Genres = () => {
 	const [genres, setGenres] = useState([])

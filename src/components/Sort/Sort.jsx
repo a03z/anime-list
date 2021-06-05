@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router'
-import { getAnimeListFx, setEffectType, setPage, setSubtype } from '../../store/effector'
+import { getAnimeListFx, setEffectType, setPage, setSubtype } from '../../entities/store/effector'
 import s from './sort.module.scss'
 
 export const Sort = () => {

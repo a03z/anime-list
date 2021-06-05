@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import s from './animepage.module.scss'
 import { useStore } from 'effector-react'
 import { useHistory } from 'react-router'
-import { $exactAnime, setAnimeId } from '../../store/effector'
+import { $exactAnime, setAnimeId } from '../../entities/store/effector'
 import { CheckIcon, SpeakerphoneIcon, StopIcon } from '@heroicons/react/solid'
 
 export const AnimePage = () => {

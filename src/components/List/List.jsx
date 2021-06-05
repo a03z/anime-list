@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { getExactAnimeFx } from '../../store/effector'
+import { getExactAnimeFx } from '../../entities/store/effector'
 import { Pagination } from '../Pagination/Pagination'
 import s from './list.module.scss'
 
