@@ -3,8 +3,8 @@ import { attach, combine, createApi, createEffect, createEvent, createStore } fr
 
 // страница запроса
 export const setPage = createEvent()
-export const $page = createStore(1).on(setPage, (state, page) => {
-	return (state = page)
+export const $page = createStore(1).on(setPage, (_, page) => {
+	return page
 })
 export const { nextPageE, prevPageE } = createApi($page, {
 	nextPageE: state => state + 1,
@@ -104,8 +104,8 @@ export const $effectType = createStore('getAnime').on(setEffectType, (state, typ
 
 // конкретное аниме
 
-const getExactAnimeBaseFx = createEffect(async ({ id, request, parameter }) => {
-	const res = await axios.get(`https://api.jikan.moe/v3/anime/${id}${request}${parameter}`)
+const getExactAnimeBaseFx = createEffect(async ({ id }) => {
+	const res = await axios.get(`https://api.jikan.moe/v3/anime/${id}`)
 	return res.data
 })
 
@@ -118,9 +118,26 @@ export const getExactAnimeFx = attach({
 	mapParams: (params, source) => source,
 	effect: getExactAnimeBaseFx,
 })
+const getExactAnimeReviewsBaseFx = createEffect(async ({ id }) => {
+	const res = await axios.get(`https://api.jikan.moe/v3/anime/${id}/reviews`)
+	return res.data
+})
+
+export const getExactAnimeReviewsFx = attach({
+	source: combine({
+		id: $animeId,
+		request: $animeRequest,
+	}),
+	mapParams: (params, source) => source,
+	effect: getExactAnimeReviewsBaseFx,
+})
+
 $animeId.watch(() => {
 	getExactAnimeFx()
+	getExactAnimeReviewsFx()
 })
+
+export const $exactAnimeReviews = createStore([]).on(getExactAnimeReviewsFx.doneData, (_, data) => data.reviews)
 
 export const $exactAnime = createStore({}).on(getExactAnimeFx.doneData, (_, data) => data)
 // загрузка

@@ -1,0 +1,68 @@
+.reviewCard {
+	width: 100%;
+	border: 1px solid hsl(261, 47%, 75%);
+	border-radius: 15px;
+	margin-bottom: 15px;
+	padding: 15px;
+	& .info {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+}
+.hiddenTextBlock {
+	max-height: 150px;
+	overflow: hidden;
+}
+.reviewsContainer {
+	& h2 {
+		font-size: 24px;
+	}
+}
+.avatar {
+	display: flex;
+	flex-direction: column;
+	width: 15%;
+	& span {
+		font-size: 24px;
+		color: white;
+	}
+	& img {
+		max-width: 90%;
+	}
+}
+.scores {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-bottom: 20px;
+	width: 80%;
+	& span {
+		width: 33%;
+		&:first-child {
+			width: 100%;
+			font-size: 20px;
+			color: white;
+		}
+	}
+}
+
+@media (max-width: 1089px) {
+	.scores {
+		& span {
+			width: 100%;
+		}
+	}
+}
+@media (max-width: 660px) {
+	.scores {
+		width: 40%;
+		& span {
+			width: 100%;
+		}
+	}
+	.avatar {
+		width: 60%;
+	}
+}

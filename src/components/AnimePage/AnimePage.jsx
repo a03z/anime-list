@@ -4,13 +4,14 @@ import { useStore } from 'effector-react'
 import { useHistory } from 'react-router'
 import { $exactAnime, setAnimeId } from '../../entities/store/effector'
 import { CheckIcon, SpeakerphoneIcon, StopIcon } from '@heroicons/react/solid'
+import { Reviews } from './AdditionalComponents/Reviews'
 
 export const AnimePage = () => {
 	const history = useHistory()
 	useEffect(() => {
 		setAnimeId(history.location.pathname.split('/')[2])
 	}, [])
-	let exactAnime = useStore($exactAnime)
+	const exactAnime = useStore($exactAnime)
 
 	return (
 		<div className={s.card}>
@@ -154,6 +155,7 @@ export const AnimePage = () => {
 						</div>
 					)}
 				</div>
+				<Reviews />
 			</div>
 		</div>
 	)
