@@ -22,7 +22,7 @@
 .avatar {
 	display: flex;
 	flex-direction: column;
-	width: 15%;
+	width: 25%;
 	& span {
 		font-size: 24px;
 		color: white;
@@ -37,7 +37,7 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	margin-bottom: 20px;
-	width: 80%;
+	width: 70%;
 	& span {
 		width: 33%;
 		&:first-child {
