@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import 'reseter.min.css'
+import '../node_modules/reseter.css/css/reseter.min.css'
 import './App.css'
 import { List } from './components/List/List'
 import { Sort } from './components/Sort/Sort'
