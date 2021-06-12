@@ -10,6 +10,7 @@
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
 	padding: 20px;
+	padding-bottom: 45px;
 	& .title {
 		font-size: 24px;
 		max-width: 60%;
@@ -36,6 +37,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		width: 20%;
 	}
 	& .statusBlock {
 		& p {
@@ -56,7 +58,7 @@
 	position: relative;
 	display: flex;
 	align-items: start;
-	width: 100%;
+	width: 80%;
 	flex-direction: column;
 }
 .statusIcon {
