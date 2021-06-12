@@ -15,7 +15,9 @@ export const Reviews = () => {
 						<div className={s.info}>
 							<a className={s.avatar} target='_blank' rel='noreferrer' href={r.reviewer.url}>
 								<span>{r.reviewer.username}</span>
-								<img src={r.reviewer.image_url} alt='' />
+								<div className={s.imgContainer}>
+									<img src={r.reviewer.image_url} alt='' />
+								</div>
 							</a>
 							<div className={s.scores}>
 								<span>Scores:</span>

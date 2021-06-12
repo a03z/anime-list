@@ -28,8 +28,17 @@
 		color: white;
 	}
 	& img {
-		max-width: 90%;
+		width: 100%;
 	}
+}
+
+.imgContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 150px;
+	height: 150px;
+	overflow: hidden;
 }
 .scores {
 	display: flex;

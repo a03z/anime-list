@@ -1,57 +1,47 @@
 import axios from 'axios'
-import { attach, combine, createApi, createEffect, createEvent, createStore } from 'effector'
+import { attach, combine, createApi, createEffect, createEvent, createStore, restore } from 'effector'
 
 // страница запроса
 export const setPage = createEvent()
-export const $page = createStore(1).on(setPage, (_, page) => {
-	return page
-})
+export const $page = restore(setPage, 1)
 export const { nextPageE, prevPageE } = createApi($page, {
-	nextPageE: state => state + 1,
-	prevPageE: state => {
-		if (state > 1) {
-			return state - 1
+	nextPageE: page => page + 1,
+	prevPageE: page => {
+		if (page > 1) {
+			return page - 1
 		} else {
-			return state
+			return page
 		}
 	},
 })
 
 // тип запроса - сортировка аниме по жанру или по рейтингу
 export const setRequestType = createEvent()
-export const $requestType = createStore('top').on(setRequestType, (state, requestType) => {
-	return (state = requestType)
-})
+export const $requestType = restore(setRequestType, 'top')
 
 // айди жанра
 export const setGenre = createEvent()
-export const $genre = createStore('').on(setGenre, (state, genreId) => {
-	return (state = genreId)
-})
+export const $genre = restore(setGenre, '')
 // тип сортировки
 export const setSortType = createEvent()
-export const $sortType = createStore('').on(setSortType, (state, sortType) => {
-	return (state = sortType)
-})
-
+export const $sortType = restore(setSortType, '')
 // подтип сортировки
 export const setSubtype = createEvent()
-export const $subtype = createStore('').on(setSubtype, (state, subtype) => {
+export const $subtype = createStore('').on(setSubtype, (_, subtype) => {
 	setRequestType('top')
 	setGenre('')
-
-	return (state = subtype)
+	return subtype
 })
 
 // anime id
 export const setAnimeId = createEvent()
-export const $animeId = createStore(1).on(setAnimeId, (state, id) => (state = id))
+export const $animeId = restore(setAnimeId, 1)
 
 export const setAnimeParameter = createEvent()
 export const setAnimeRequest = createEvent()
 
-const $animeRequest = createStore('').on(setAnimeParameter, (state, parameter) => (state = parameter))
-const $animeParameter = createStore('').on(setAnimeRequest, (state, request) => (state = request))
+const $animeRequest = restore(setAnimeRequest, '')
+const $animeParameter = restore(setAnimeParameter, '')
 
 // ------effects------
 
@@ -79,9 +69,7 @@ export const getAnimeListFx = attach({
 // поиск
 export const setSearchText = createEvent()
 
-export const $searchText = createStore('').on(setSearchText, (state, text) => {
-	return (state = text)
-})
+export const $searchText = restore(setSearchText, '')
 
 const searchAnimeListFxBase = createEffect(async ({ page, searchText }) => {
 	const res = await axios.get(`https://api.jikan.moe/v3/search/anime?q=${searchText}&page=${page}`)
@@ -98,10 +86,7 @@ export const searchAnimeListFx = attach({
 })
 
 export const setEffectType = createEvent()
-export const $effectType = createStore('getAnime').on(setEffectType, (state, type) => {
-	return (state = type)
-})
-
+export const $effectType = restore(setEffectType, 'getAnime')
 // конкретное аниме
 
 const getExactAnimeBaseFx = createEffect(async ({ id }) => {
