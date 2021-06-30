@@ -155,7 +155,7 @@ export const AnimePage = () => {
 						</div>
 					)}
 				</div>
-				<Reviews />
+				<Reviews reviews={exactAnime.reviews} />
 			</div>
 		</div>
 	)

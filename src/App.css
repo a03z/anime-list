@@ -1,15 +1,26 @@
 body {
-    background: #18222b;
-    color: white;
+	background: #18222b;
+	color: white;
 }
 
 h2 {
-    color: #b1b1b1;
-    font-size: 20px;
-    margin: 0;
-    padding: 5px;
-    transition: all 0.3s ease-in-out;
+	color: #b1b1b1;
+	font-size: 20px;
+	margin: 0;
+	padding: 5px;
+	transition: all 0.3s ease-in-out;
 }
 a:focus {
-    outline: none;
+	outline: none;
+}
+body button {
+	border-radius: 30px;
+	padding: 5px 20px;
+	transition: all 0.1s ease-in-out;
+}
+body button:focus {
+	outline: none;
+}
+body button:active {
+	transform: scale(0.9);
 }

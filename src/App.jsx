@@ -16,7 +16,6 @@ import { ROUTES } from './entities/routes/routes'
 function App() {
 	// effector
 	let isFetching = useStore($isFetching)
-
 	// --------------
 
 	useEffect(() => {

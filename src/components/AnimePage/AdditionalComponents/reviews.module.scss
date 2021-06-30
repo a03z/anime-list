@@ -20,6 +20,7 @@
 	max-width: 100%;
 	max-height: 300px;
 	overflow: hidden;
+	position: relative;
 	&.shown {
 		max-height: none;
 	}
@@ -73,7 +74,7 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	margin-top: 30px;
-	width: 80%;
+	width: 70%;
 	& span {
 		width: 33%;
 		&:first-child {
@@ -84,11 +85,40 @@
 	}
 }
 
+.noReviewsFound {
+	font-size: 24px;
+	color: hsl(352, 60%, 60%);
+}
+
+.collapseAllBtn {
+	position: absolute;
+	right: 185px;
+	top: 5px;
+}
+
+.showReviewsBtn {
+	position: absolute;
+	right: 15px;
+	top: 5px;
+}
+
 @media (max-width: 1089px) {
 	.scores {
+		width: 60%;
+		margin-top: 0;
 		& span {
 			width: 100%;
 		}
+	}
+}
+@media (max-width: 800px) {
+	.collapseAllBtn {
+		position: initial;
+		font-size: 16px;
+		margin: 10px;
+	}
+	.showReviewsBtn {
+		position: initial;
 	}
 }
 @media (max-width: 660px) {
@@ -100,5 +130,8 @@
 	}
 	.avatar {
 		width: 60%;
+	}
+	.scores {
+		flex-direction: column;
 	}
 }

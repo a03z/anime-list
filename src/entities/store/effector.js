@@ -122,9 +122,13 @@ $animeId.watch(() => {
 	getExactAnimeReviewsFx()
 })
 
+export const $exactAnimeData = createStore({}).on(getExactAnimeFx.doneData, (_, data) => data)
 export const $exactAnimeReviews = createStore([]).on(getExactAnimeReviewsFx.doneData, (_, data) => data.reviews)
 
-export const $exactAnime = createStore({}).on(getExactAnimeFx.doneData, (_, data) => data)
+$exactAnimeReviews.watch(s => console.log(s))
+
+export const $exactAnime = combine($exactAnimeData, $exactAnimeReviews, (exactAnime, reviews) => ({ ...exactAnime, reviews }))
+
 // загрузка
 export const setIsFetching = createEvent()
 export const $isFetching = combine([getAnimeListFx.pending, searchAnimeListFx.pending, getExactAnimeFx.pending], pendings => pendings.some(Boolean))
