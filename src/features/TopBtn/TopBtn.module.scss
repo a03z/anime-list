@@ -1,0 +1,26 @@
+.topBtn {
+	width: 40px;
+	height: 40px;
+	border: 1px solid #004eff;
+	background-color: rgba(255, 255, 255, 0.15);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.35);
+	border-radius: 50%;
+	padding: 10px;
+	text-decoration: none;
+	cursor: pointer;
+	position: fixed;
+	right: 10px;
+	bottom: 10px;
+	opacity: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 99;
+	transition: all 0.3s ease;
+	&:hover {
+		transform: translateY(-8px);
+	}
+	&.shown {
+		opacity: 1;
+	}
+}

@@ -24,3 +24,7 @@ body button:focus {
 body button:active {
 	transform: scale(0.9);
 }
+
+.top-show {
+	display: block;
+}

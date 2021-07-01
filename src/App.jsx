@@ -12,6 +12,7 @@ import { Search } from './components/Search/Search'
 import { Preloader } from './features/Preloader/Preloader'
 import { AnimePage } from './components/AnimePage/AnimePage'
 import { ROUTES } from './entities/routes/routes'
+import { TopBtn } from './features/TopBtn/TopBtn'
 
 function App() {
 	// effector
@@ -46,6 +47,7 @@ function App() {
 				<Route path={ROUTES.ANIME} render={() => <AnimePage />} />
 				<Route exact path={ROUTES.MAIN_PAGE} render={() => <List />} />
 				<Route exact path={ROUTES.TOP} render={() => <List />} />
+				<TopBtn />
 			</div>
 		)
 	}
