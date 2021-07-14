@@ -14,43 +14,41 @@ import { AnimePage } from './components/AnimePage/AnimePage'
 import { ROUTES } from './entities/routes/routes'
 import { TopBtn } from './features/TopBtn/TopBtn'
 
-function App() {
+const App = () => {
 	// effector
 	let isFetching = useStore($isFetching)
 	// --------------
 
 	useEffect(() => {
-		getAnimeListFx()
+		getAnimeListFx() // initializing anime list data
 	}, [])
 
-	if (isFetching) {
-		return <Preloader />
-	} else {
-		return (
-			<div className='App'>
-				<header>
-					<Navbar />
-					<Route path={ROUTES.SEARCH} render={() => <Search />} />
-					<Sort />
-				</header>
+	return isFetching ? (
+		<Preloader />
+	) : (
+		<div className='App'>
+			<header>
+				<Navbar />
+				<Route path={ROUTES.SEARCH} render={() => <Search />} />
+				<Sort />
+			</header>
 
-				<Route exact path={ROUTES.SEARCH} render={() => <List />} />
-				<Route
-					path={ROUTES.GENRES}
-					render={() => (
-						<>
-							<Genres />
-							<List />
-						</>
-					)}
-				/>
-				<Route path={ROUTES.ANIME} render={() => <AnimePage />} />
-				<Route exact path={ROUTES.MAIN_PAGE} render={() => <List />} />
-				<Route exact path={ROUTES.TOP} render={() => <List />} />
-				<TopBtn />
-			</div>
-		)
-	}
+			<Route exact path={ROUTES.SEARCH} render={() => <List />} />
+			<Route
+				path={ROUTES.GENRES}
+				render={() => (
+					<>
+						<Genres />
+						<List />
+					</>
+				)}
+			/>
+			<Route path={ROUTES.ANIME} render={() => <AnimePage />} />
+			<Route exact path={ROUTES.MAIN_PAGE} render={() => <List />} />
+			<Route exact path={ROUTES.TOP} render={() => <List />} />
+			<TopBtn />
+		</div>
+	)
 }
 
 export default App

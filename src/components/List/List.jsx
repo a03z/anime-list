@@ -1,7 +1,16 @@
 import { useList, useStore } from 'effector-react'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { $effectType, $list, $page, getAnimeListFx, getExactAnimeFx, nextPageE, prevPageE, searchAnimeListFx } from '../../entities/store/effector'
+import {
+	$effectType,
+	$list,
+	$page,
+	getAnimeListFx,
+	getExactAnimeFx,
+	nextPageE,
+	prevPageE,
+	searchAnimeListFx,
+} from '../../entities/store/effector'
 import { Pagination } from '../Pagination/Pagination'
 import s from './list.module.scss'
 
@@ -23,7 +32,7 @@ export const List = () => {
 		}
 	}
 
-	const list = useList($list, el => {
+	const list = useList($list, (el) => {
 		return (
 			<NavLink
 				href={el.url}

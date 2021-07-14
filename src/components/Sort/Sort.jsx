@@ -1,51 +1,58 @@
 import React from 'react'
 import { useHistory } from 'react-router'
-import { getAnimeListFx, setEffectType, setPage, setSubtype } from '../../entities/store/effector'
+import {
+	getAnimeListFx,
+	setEffectType,
+	setPage,
+	setSubtype,
+	setTitle,
+} from '../../entities/store/effector'
 import s from './sort.module.scss'
 
 export const Sort = () => {
 	const history = useHistory()
-	const getSorted = subtype => {
+	const getSorted = (subtype, title) => {
 		setPage(1)
 		setSubtype(subtype)
 		setEffectType('getAnime')
 		history.push('/')
+		setTitle(title)
 		getAnimeListFx()
 	}
 
 	const getByRating = () => {
-		getSorted('')
+		getSorted('', 'Rating')
 	}
 	const getByPopularity = () => {
-		getSorted('/bypopularity')
+		getSorted('/bypopularity', 'Popularity')
 	}
 
 	const getFavorite = () => {
-		getSorted('/favorite')
+		getSorted('/favorite', 'Favorite')
 	}
 
 	const getAiring = () => {
-		getSorted('/airing')
+		getSorted('/airing', 'Airing')
 	}
 
 	const getUpcoming = () => {
-		getSorted('/upcoming')
+		getSorted('/upcoming', 'Upcoming')
 	}
 
 	const getTv = () => {
-		getSorted('/tv')
+		getSorted('/tv', 'TV')
 	}
 
 	const getMovie = () => {
-		getSorted('/movie')
+		getSorted('/movie', 'Movie')
 	}
 
 	const getOva = () => {
-		getSorted('/ova')
+		getSorted('/ova', 'OVA')
 	}
 
 	const getSpecial = () => {
-		getSorted('/special')
+		getSorted('/special', 'Special')
 	}
 
 	return (

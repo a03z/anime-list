@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import s from './search.module.scss'
 import { useForm } from 'react-hook-form'
-import { searchAnimeListFx, setEffectType, setSearchText } from '../../entities/store/effector'
+import {
+	searchAnimeListFx,
+	setEffectType,
+	setSearchText,
+	setTitle,
+} from '../../entities/store/effector'
 import { ExclamationCircleIcon, SearchIcon } from '@heroicons/react/outline'
 
 export const Search = () => {
@@ -10,22 +15,37 @@ export const Search = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
-	let onSubmit = data => {
+	let onSubmit = (data) => {
 		setSearchText(data.searchAnime)
 		setEffectType('searchAnime')
 		searchAnimeListFx()
 	}
+
+	useEffect(() => {
+		setTitle('Search...')
+	}, [])
 	return (
 		<>
-			<form autoComplete='off' className={s.search} onSubmit={handleSubmit(onSubmit)}>
+			<form
+				autoComplete='off'
+				className={s.search}
+				onSubmit={handleSubmit(onSubmit)}>
 				<div className={s.searchContainer}>
-					<input className={s.searchInput} {...register('searchAnime', { required: true })} placeholder='Search...' />
+					<input
+						className={s.searchInput}
+						{...register('searchAnime', { required: true })}
+						placeholder='Search...'
+					/>
 
 					{errors.searchAnime && (
 						<>
 							<span className={s.errorSpan}>
-								<ExclamationCircleIcon className={s.errorSpanIcon} />
-								<div className={s.errorPopup}>This field is required.</div>
+								<ExclamationCircleIcon
+									className={s.errorSpanIcon}
+								/>
+								<div className={s.errorPopup}>
+									This field is required.
+								</div>
 							</span>
 						</>
 					)}

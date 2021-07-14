@@ -13,6 +13,10 @@ export const AnimePage = () => {
 	}, [])
 	const exactAnime = useStore($exactAnime)
 
+	useEffect(() => {
+		document.title = exactAnime.title
+	}, [])
+
 	return (
 		<div className={s.card}>
 			<div className={s.img}>
@@ -27,7 +31,11 @@ export const AnimePage = () => {
 				</div>
 			</div>
 			<div className={s.description}>
-				<a href={exactAnime.url} target='_blank' rel='noreferrer' className={s.title}>
+				<a
+					href={exactAnime.url}
+					target='_blank'
+					rel='noreferrer'
+					className={s.title}>
 					{exactAnime.title}
 				</a>
 				<div className={s.subtitles}>
@@ -54,10 +62,26 @@ export const AnimePage = () => {
 				)}
 				<div className={s.infoContainer}>
 					<div className={s.info}>
-						{exactAnime.status === 'Not yet aired' ? <span>Episodes: Not yet aired</span> : <span>Episodes : {exactAnime.episodes}</span>}
-						{exactAnime.status === 'Not yet aired' ? <span>Score: Not yet aired</span> : <span>Score : {exactAnime.score}</span>}
-						{exactAnime.status === 'Not yet aired' ? <span>Scored by: Not yet aired</span> : <span>Score : {exactAnime.scored_by}</span>}
-						{exactAnime.status === 'Not yet aired' ? <span>Rank: Not yet aired</span> : <span>Rank: {exactAnime.rank}</span>}
+						{exactAnime.status === 'Not yet aired' ? (
+							<span>Episodes: Not yet aired</span>
+						) : (
+							<span>Episodes : {exactAnime.episodes}</span>
+						)}
+						{exactAnime.status === 'Not yet aired' ? (
+							<span>Score: Not yet aired</span>
+						) : (
+							<span>Score : {exactAnime.score}</span>
+						)}
+						{exactAnime.status === 'Not yet aired' ? (
+							<span>Scored by: Not yet aired</span>
+						) : (
+							<span>Score : {exactAnime.scored_by}</span>
+						)}
+						{exactAnime.status === 'Not yet aired' ? (
+							<span>Rank: Not yet aired</span>
+						) : (
+							<span>Rank: {exactAnime.rank}</span>
+						)}
 						<span>Duration: {exactAnime.duration}</span>
 						<span>Popularity: {exactAnime.popularity}</span>
 						<span>Premiered: {exactAnime.premiered}</span>
@@ -73,9 +97,13 @@ export const AnimePage = () => {
 					{exactAnime.related['Adaptation'] && (
 						<div className={s.relatedEl}>
 							<h4>Adaptation:</h4>
-							{exactAnime.related['Adaptation'].map(el => {
+							{exactAnime.related['Adaptation'].map((el) => {
 								return (
-									<a target='_blank' rel='noreferrer' href={el.url} key={el.mal_id}>
+									<a
+										target='_blank'
+										rel='noreferrer'
+										href={el.url}
+										key={el.mal_id}>
 										{el.name}
 									</a>
 								)
@@ -85,21 +113,31 @@ export const AnimePage = () => {
 					{exactAnime.related['Alternative setting'] && (
 						<div className={s.relatedEl}>
 							<h4>Alternative setting:</h4>
-							{exactAnime.related['Alternative setting'].map(el => {
-								return (
-									<a target='_blank' rel='noreferrer' href={el.url} key={el.mal_id}>
-										{el.name}
-									</a>
-								)
-							})}
+							{exactAnime.related['Alternative setting'].map(
+								(el) => {
+									return (
+										<a
+											target='_blank'
+											rel='noreferrer'
+											href={el.url}
+											key={el.mal_id}>
+											{el.name}
+										</a>
+									)
+								}
+							)}
 						</div>
 					)}
 					{exactAnime.related['Sequel'] && (
 						<div className={s.relatedEl}>
 							<h4>Sequel:</h4>
-							{exactAnime.related['Sequel'].map(el => {
+							{exactAnime.related['Sequel'].map((el) => {
 								return (
-									<a target='_blank' rel='noreferrer' href={el.url} key={el.mal_id}>
+									<a
+										target='_blank'
+										rel='noreferrer'
+										href={el.url}
+										key={el.mal_id}>
 										{el.name}
 									</a>
 								)
@@ -109,9 +147,13 @@ export const AnimePage = () => {
 					{exactAnime.related['Other'] && (
 						<div className={s.relatedEl}>
 							<h4>Other:</h4>
-							{exactAnime.related['Other'].map(el => {
+							{exactAnime.related['Other'].map((el) => {
 								return (
-									<a target='_blank' rel='noreferrer' href={el.url} key={el.mal_id}>
+									<a
+										target='_blank'
+										rel='noreferrer'
+										href={el.url}
+										key={el.mal_id}>
 										{el.name}
 									</a>
 								)
@@ -121,37 +163,47 @@ export const AnimePage = () => {
 					{exactAnime.related['Alternative version'] && (
 						<div className={s.relatedEl}>
 							<h4>Alternative version:</h4>
-							{exactAnime.related['Alternative version'].map(el => {
-								return (
-									<a target='_blank' rel='noreferrer' href={el.url} key={el.mal_id}>
-										{el.name}
-									</a>
-								)
-							})}
+							{exactAnime.related['Alternative version'].map(
+								(el) => {
+									return (
+										<a
+											target='_blank'
+											rel='noreferrer'
+											href={el.url}
+											key={el.mal_id}>
+											{el.name}
+										</a>
+									)
+								}
+							)}
 						</div>
 					)}
 					{exactAnime.related['Summary'] && (
 						<div className={s.relatedEl}>
 							<h4>Summary:</h4>
-							{exactAnime.related['Summary'].map(el => {
-								return (
-									<a target='_blank' rel='noreferrer' href={el.url} key={el.mal_id}>
-										{el.name}
-									</a>
-								)
-							})}
+							{exactAnime.related['Summary'].map((el) => (
+								<a
+									target='_blank'
+									rel='noreferrer'
+									href={el.url}
+									key={el.mal_id}>
+									{el.name}
+								</a>
+							))}
 						</div>
 					)}
 					{exactAnime.related['Spin-off'] && (
 						<div className={s.relatedEl}>
 							<h4>Spin-off:</h4>
-							{exactAnime.related['Spin-off'].map(el => {
-								return (
-									<a target='_blank' rel='noreferrer' href={el.url} key={el.mal_id}>
-										{el.name}
-									</a>
-								)
-							})}
+							{exactAnime.related['Spin-off'].map((el) => (
+								<a
+									target='_blank'
+									rel='noreferrer'
+									href={el.url}
+									key={el.mal_id}>
+									{el.name}
+								</a>
+							))}
 						</div>
 					)}
 				</div>

@@ -1,7 +1,14 @@
 import axios from 'axios'
 import s from './genres.module.scss'
 import React, { useEffect, useState } from 'react'
-import { getAnimeListFx, setEffectType, setGenre, setPage, setRequestType } from '../../entities/store/effector'
+import {
+	getAnimeListFx,
+	setEffectType,
+	setGenre,
+	setPage,
+	setRequestType,
+	setTitle,
+} from '../../entities/store/effector'
 
 export const Genres = () => {
 	const [genres, setGenres] = useState([])
@@ -15,12 +22,13 @@ export const Genres = () => {
 	useEffect(() => {
 		setEffectType('getAnime')
 		getGenreList()
+		setTitle('Genres')
 	}, [])
 
 	return (
 		<div className={s.genres}>
 			<span>Genres</span>
-			{genres.map(el => (
+			{genres.map((el) => (
 				<button
 					onClick={() => {
 						setPage(1)
