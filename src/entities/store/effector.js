@@ -6,6 +6,7 @@ import {
 	createEffect,
 	createEvent,
 	createStore,
+	forward,
 	restore,
 } from 'effector'
 
@@ -13,8 +14,8 @@ import {
 export const setPage = createEvent()
 export const $page = restore(setPage, 1)
 export const { nextPageE, prevPageE } = createApi($page, {
-	nextPageE: (page) => page + 1,
-	prevPageE: (page) => {
+	nextPageE: page => page + 1,
+	prevPageE: page => {
 		if (page > 1) {
 			return page - 1
 		} else {
@@ -56,7 +57,7 @@ const $animeParameter = restore(setAnimeParameter, '')
 export const setTitle = createEvent()
 export const $title = restore(setTitle, 'Anime List | by a03z')
 
-$title.watch((s) => {
+$title.watch(s => {
 	document.title = s
 })
 
@@ -141,8 +142,8 @@ export const getExactAnimeReviewsFx = attach({
 })
 
 forward({
-  from: $animeId,
-  to: [getExactAnimeFx, getExactAnimeReviewsFx],
+	from: $animeId,
+	to: [getExactAnimeFx, getExactAnimeReviewsFx],
 })
 
 export const $exactAnimeData = createStore({}).on(
@@ -168,7 +169,7 @@ export const $isFetching = combine(
 		searchAnimeListFx.pending,
 		getExactAnimeFx.pending,
 	],
-	(pendings) => pendings.some(Boolean)
+	pendings => pendings.some(Boolean)
 )
 
 export const $list = createStore([])

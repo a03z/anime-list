@@ -8,11 +8,13 @@ export const Navbar = () => {
 	return (
 		<nav>
 			<ul>
-				<li
-					onClick={() => {
-						setTitle('Anime List | by a03z')
-					}}>
-					<NavLink to={ROUTES.TOP} className={s.pageTitle}>
+				<li>
+					<NavLink
+						onClick={() => {
+							setTitle('Anime List | by a03z')
+						}}
+						to={ROUTES.TOP}
+						className={s.pageTitle}>
 						Top Anime
 					</NavLink>
 				</li>

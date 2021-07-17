@@ -2,7 +2,11 @@ import React, { useEffect } from 'react'
 import s from './animepage.module.scss'
 import { useStore } from 'effector-react'
 import { useHistory } from 'react-router'
-import { $exactAnime, setAnimeId } from '../../entities/store/effector'
+import {
+	$exactAnime,
+	setAnimeId,
+	setTitle,
+} from '../../entities/store/effector'
 import { CheckIcon, SpeakerphoneIcon, StopIcon } from '@heroicons/react/solid'
 import { Reviews } from './AdditionalComponents/Reviews'
 
@@ -14,7 +18,7 @@ export const AnimePage = () => {
 	const exactAnime = useStore($exactAnime)
 
 	useEffect(() => {
-		document.title = exactAnime.title
+		setTitle(exactAnime.title)
 	}, [])
 
 	return (
