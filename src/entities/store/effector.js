@@ -140,9 +140,9 @@ export const getExactAnimeReviewsFx = attach({
 	effect: getExactAnimeReviewsBaseFx,
 })
 
-$animeId.watch(() => {
-	getExactAnimeFx()
-	getExactAnimeReviewsFx()
+forward({
+  from: $animeId,
+  to: [getExactAnimeFx, getExactAnimeReviewsFx],
 })
 
 export const $exactAnimeData = createStore({}).on(
