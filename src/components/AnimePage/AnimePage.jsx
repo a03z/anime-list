@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react'
 import s from './animepage.module.scss'
 import { useStore } from 'effector-react'
-import { useHistory } from 'react-router'
-import {
-	$exactAnime,
-	setAnimeId,
-	setTitle,
-} from '../../entities/store/effector'
 import { CheckIcon, SpeakerphoneIcon, StopIcon } from '@heroicons/react/solid'
 import { Reviews } from './AdditionalComponents/Reviews'
+import { useParams } from 'react-router-dom'
+import {
+	setAnimeId,
+	$exactAnime,
+	setTitle,
+} from '../../entities/store/effector'
 
 export const AnimePage = () => {
-	const history = useHistory()
+	const { animeId } = useParams()
 	useEffect(() => {
-		setAnimeId(history.location.pathname.split('/')[2])
+		setAnimeId(animeId)
 	}, [])
 	const exactAnime = useStore($exactAnime)
 
@@ -44,7 +44,7 @@ export const AnimePage = () => {
 				</a>
 				<div className={s.subtitles}>
 					<p className={s.subtitle}>{exactAnime.rating}</p>
-					<p className={s.subtitle}>{exactAnime.aired.string}</p>
+					<p className={s.subtitle}>{exactAnime.aired?.string}</p>
 				</div>
 				{exactAnime.status === 'Finished Airing' ? (
 					<div className={`${s.statusBlock} ${s.done}`}>
@@ -97,120 +97,7 @@ export const AnimePage = () => {
 					<h3>Synopsis</h3>
 					<p>{exactAnime.synopsis}</p>
 				</div>
-				<div className={s.related}>
-					{exactAnime.related['Adaptation'] && (
-						<div className={s.relatedEl}>
-							<h4>Adaptation:</h4>
-							{exactAnime.related['Adaptation'].map((el) => {
-								return (
-									<a
-										target='_blank'
-										rel='noreferrer'
-										href={el.url}
-										key={el.mal_id}>
-										{el.name}
-									</a>
-								)
-							})}
-						</div>
-					)}
-					{exactAnime.related['Alternative setting'] && (
-						<div className={s.relatedEl}>
-							<h4>Alternative setting:</h4>
-							{exactAnime.related['Alternative setting'].map(
-								(el) => {
-									return (
-										<a
-											target='_blank'
-											rel='noreferrer'
-											href={el.url}
-											key={el.mal_id}>
-											{el.name}
-										</a>
-									)
-								}
-							)}
-						</div>
-					)}
-					{exactAnime.related['Sequel'] && (
-						<div className={s.relatedEl}>
-							<h4>Sequel:</h4>
-							{exactAnime.related['Sequel'].map((el) => {
-								return (
-									<a
-										target='_blank'
-										rel='noreferrer'
-										href={el.url}
-										key={el.mal_id}>
-										{el.name}
-									</a>
-								)
-							})}
-						</div>
-					)}
-					{exactAnime.related['Other'] && (
-						<div className={s.relatedEl}>
-							<h4>Other:</h4>
-							{exactAnime.related['Other'].map((el) => {
-								return (
-									<a
-										target='_blank'
-										rel='noreferrer'
-										href={el.url}
-										key={el.mal_id}>
-										{el.name}
-									</a>
-								)
-							})}
-						</div>
-					)}
-					{exactAnime.related['Alternative version'] && (
-						<div className={s.relatedEl}>
-							<h4>Alternative version:</h4>
-							{exactAnime.related['Alternative version'].map(
-								(el) => {
-									return (
-										<a
-											target='_blank'
-											rel='noreferrer'
-											href={el.url}
-											key={el.mal_id}>
-											{el.name}
-										</a>
-									)
-								}
-							)}
-						</div>
-					)}
-					{exactAnime.related['Summary'] && (
-						<div className={s.relatedEl}>
-							<h4>Summary:</h4>
-							{exactAnime.related['Summary'].map((el) => (
-								<a
-									target='_blank'
-									rel='noreferrer'
-									href={el.url}
-									key={el.mal_id}>
-									{el.name}
-								</a>
-							))}
-						</div>
-					)}
-					{exactAnime.related['Spin-off'] && (
-						<div className={s.relatedEl}>
-							<h4>Spin-off:</h4>
-							{exactAnime.related['Spin-off'].map((el) => (
-								<a
-									target='_blank'
-									rel='noreferrer'
-									href={el.url}
-									key={el.mal_id}>
-									{el.name}
-								</a>
-							))}
-						</div>
-					)}
-				</div>
+
 				<Reviews reviews={exactAnime.reviews} />
 			</div>
 		</div>

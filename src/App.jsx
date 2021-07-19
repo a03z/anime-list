@@ -6,23 +6,21 @@ import { Sort } from './components/Sort/Sort'
 import { Genres } from './components/Genres/Genres'
 import { Route } from 'react-router-dom'
 import { Navbar } from './components/Navbar/Navbar'
-import { $isFetching, getAnimeListFx } from './entities/store/effector'
 import { useStore } from 'effector-react'
 import { Search } from './components/Search/Search'
 import { Preloader } from './features/Preloader/Preloader'
 import { AnimePage } from './components/AnimePage/AnimePage'
 import { ROUTES } from './entities/routes/routes'
 import { TopBtn } from './features/TopBtn/TopBtn'
+import { $isFetching, getAnimeListFx } from './entities/store/effector'
 
 const App = () => {
 	// effector
 	let isFetching = useStore($isFetching)
 	// --------------
-
 	useEffect(() => {
-		getAnimeListFx() // initializing anime list data
+		getAnimeListFx()
 	}, [])
-
 	return isFetching ? (
 		<Preloader />
 	) : (

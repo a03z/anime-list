@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import s from './search.module.scss'
 import { useForm } from 'react-hook-form'
+import { ExclamationCircleIcon, SearchIcon } from '@heroicons/react/outline'
 import {
 	searchAnimeListFx,
 	setEffectType,
 	setSearchText,
 	setTitle,
 } from '../../entities/store/effector'
-import { ExclamationCircleIcon, SearchIcon } from '@heroicons/react/outline'
 
 export const Search = () => {
 	const {
@@ -15,7 +15,7 @@ export const Search = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
-	let onSubmit = (data) => {
+	let onSubmit = data => {
 		setSearchText(data.searchAnime)
 		setEffectType('searchAnime')
 		searchAnimeListFx()

@@ -1,8 +1,10 @@
-import axios from 'axios'
 import s from './genres.module.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useList } from 'effector-react'
 import {
+	$genres,
 	getAnimeListFx,
+	getGenreListFx,
 	setEffectType,
 	setGenre,
 	setPage,
@@ -11,34 +13,29 @@ import {
 } from '../../entities/store/effector'
 
 export const Genres = () => {
-	const [genres, setGenres] = useState([])
-
-	const getGenreList = async () => {
-		const res = await axios.get(`https://api.jikan.moe/v4/genres/anime`)
-		setRequestType('genre')
-		setGenres(res.data.data)
-	}
+	const genres = useList($genres, el => (
+		<button
+			onClick={() => {
+				setPage(1)
+				setRequestType('genre')
+				setGenre(`/${el.mal_id}`)
+				getAnimeListFx()
+			}}
+			key={el.mal_id}>
+			{el.name}
+		</button>
+	))
 
 	useEffect(() => {
 		setEffectType('getAnime')
-		getGenreList()
+		getGenreListFx()
 		setTitle('Genres')
 	}, [])
 
 	return (
 		<div className={s.genres}>
 			<span>Genres</span>
-			{genres.map((el) => (
-				<button
-					onClick={() => {
-						setPage(1)
-						setGenre(`/${el.mal_id}`)
-						getAnimeListFx()
-					}}
-					key={el.mal_id}>
-					{el.name}
-				</button>
-			))}
+			{genres}
 		</div>
 	)
 }
