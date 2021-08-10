@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react'
 import '../node_modules/reseter.css/css/reseter.min.css'
 import './App.css'
-import { List } from './components/List/List'
-import { Sort } from './components/Sort/Sort'
-import { Genres } from './components/Genres/Genres'
 import { Route } from 'react-router-dom'
-import { Navbar } from './components/Navbar/Navbar'
 import { useStore } from 'effector-react'
-import { Search } from './components/Search/Search'
+import { List } from './pages/List'
+import { Sort } from './components/Sort'
+import { Genres } from './pages/Genres'
+import { Navbar } from './components/Navbar'
+import { Search } from './pages/Search'
 import { Preloader } from './features/Preloader/Preloader'
-import { AnimePage } from './components/AnimePage/AnimePage'
+import { AnimePage } from './pages/AnimePage'
 import { ROUTES } from './entities/routes/routes'
 import { TopBtn } from './features/TopBtn/TopBtn'
 import { $isFetching, getAnimeListFx } from './entities/store/effector'
-
 const App = () => {
 	// effector
 	let isFetching = useStore($isFetching)

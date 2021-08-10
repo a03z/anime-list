@@ -1,0 +1,137 @@
+.card {
+	display: flex;
+	gap: 25px;
+	max-width: 80%;
+	margin: 40px auto;
+	background: rgba(76, 76, 76, 0.12);
+	box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(3px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	padding: 20px;
+	padding-bottom: 45px;
+	& .title {
+		font-size: 24px;
+		max-width: 60%;
+		text-align: center;
+		margin-bottom: 0;
+	}
+
+	& .subtitles {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+	}
+	& .subtitle {
+		font-size: 16px;
+		color: #b1b1b1;
+	}
+	& .statusBlock {
+		display: flex;
+		align-items: center;
+		position: absolute;
+		right: 0;
+	}
+	& .img {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 20%;
+	}
+	& .statusBlock {
+		& p {
+			margin: 0 5px;
+		}
+		&.done {
+			color: rgb(77, 223, 77);
+		}
+		&.airing {
+			color: rgb(216, 233, 63);
+		}
+		&.upcoming {
+			color: rgb(219, 73, 54);
+		}
+	}
+}
+.description {
+	position: relative;
+	display: flex;
+	align-items: start;
+	width: 80%;
+	flex-direction: column;
+}
+.statusIcon {
+	height: 20px;
+	width: 20px;
+}
+.infoContainer {
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+}
+.info {
+	width: 100%;
+	padding: 0 20px;
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 80%;
+	justify-content: space-around;
+	& span {
+		color: white;
+		width: 30%;
+	}
+}
+.alternativeTitles p span {
+	font-weight: bold;
+}
+.synopsis h3 {
+	font-size: 20px;
+}
+
+.related {
+	display: flex;
+	flex-direction: column;
+	&El {
+		display: flex;
+		max-width: 100%;
+		flex-wrap: wrap;
+		& a {
+			font-size: 16px;
+			color: hsl(212, 0%, 55%);
+			margin: 0 20px;
+			&:hover {
+				color: hsl(235, 50%, 60%);
+			}
+		}
+		& h4 {
+			font-size: 16px;
+			margin: 0;
+		}
+	}
+}
+
+@media (max-width: 1256px) {
+	.info span {
+		width: 50%;
+	}
+}
+@media (max-width: 661px) {
+	.card {
+		flex-direction: column;
+		& .title {
+			text-align: start;
+		}
+	}
+	.info {
+		max-width: none;
+	}
+}
+@media (max-width: 930px) {
+	.info span {
+		width: 100%;
+	}
+	.card .subtitles {
+		flex-direction: column;
+	}
+}
