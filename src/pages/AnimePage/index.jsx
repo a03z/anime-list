@@ -4,21 +4,15 @@ import { useStore } from 'effector-react'
 import { CheckIcon, SpeakerphoneIcon, StopIcon } from '@heroicons/react/solid'
 import { Reviews } from './AdditionalComponents/Reviews'
 import { useParams } from 'react-router-dom'
-import {
-	setAnimeId,
-	$exactAnime,
-	setTitle,
-} from '../../entities/store/effector'
+import { $exactAnime, animeIdChanged } from './model'
+import { titleChanged } from '../../entities/store/effector'
 
 export const AnimePage = () => {
 	const { animeId } = useParams()
-	useEffect(() => {
-		setAnimeId(animeId)
-	}, [])
 	const exactAnime = useStore($exactAnime)
-
 	useEffect(() => {
-		setTitle(exactAnime.title)
+		animeIdChanged(animeId)
+		titleChanged(exactAnime.title)
 	}, [])
 
 	return (

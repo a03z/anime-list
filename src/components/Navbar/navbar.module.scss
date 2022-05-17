@@ -25,6 +25,10 @@ a:hover {
 	&:hover {
 		text-decoration: underline;
 	}
+	&.searchBtn {
+		padding: 0;
+		border: 0;
+	}
 }
 
 .activeLink {

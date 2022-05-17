@@ -5,22 +5,17 @@
 	margin: 25px auto;
 	align-items: center;
 	font-size: 24px;
-}
-
-.changePage {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 40px;
-	width: 40px;
-	margin: 0 10px;
-	padding: 0;
-	color: white;
-	& svg {
-		height: 25px;
+	& .changePage {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 40px;
+		width: 40px;
+		margin: 0 10px;
+		padding: 0;
+		color: white;
+		& svg {
+			height: 25px;
+		}
 	}
-}
-
-.active {
-	color: white;
 }

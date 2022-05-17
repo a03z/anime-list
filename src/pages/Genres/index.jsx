@@ -1,35 +1,29 @@
 import s from './genres.module.scss'
 import React, { useEffect } from 'react'
 import { useList } from 'effector-react'
-import {
-	$genres,
-	getAnimeListFx,
-	getGenreListFx,
-	setEffectType,
-	setGenre,
-	setPage,
-	setRequestType,
-	setTitle,
-} from '../../entities/store/effector'
+import { $genres, getGenreListFx, genreChanged } from './model'
+import { getAnimeListFx, pageChanged, requestTypeChanged } from '../List/model'
+import { effectTypeChanged, titleChanged } from '../../entities/store/effector'
 
 export const Genres = () => {
-	const genres = useList($genres, el => (
+	const genres = useList($genres, (el) => (
 		<button
 			onClick={() => {
-				setPage(1)
-				setRequestType('genre')
-				setGenre(`/${el.mal_id}`)
+				pageChanged(1)
+				requestTypeChanged('genre')
+				genreChanged(`/${el.mal_id}`)
 				getAnimeListFx()
 			}}
+			className='btn'
 			key={el.mal_id}>
 			{el.name}
 		</button>
 	))
 
 	useEffect(() => {
-		setEffectType('getAnime')
+		effectTypeChanged('getAnime')
 		getGenreListFx()
-		setTitle('Genres')
+		titleChanged('Genres')
 	}, [])
 
 	return (

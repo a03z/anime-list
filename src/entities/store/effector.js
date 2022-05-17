@@ -1,164 +1,25 @@
-import axios from 'axios'
+import { combine, createStore, restore, createEvent } from 'effector'
 import {
-	attach,
-	combine,
-	createApi,
-	createEffect,
-	createStore,
-	forward,
-	restore,
-	createEvent,
-} from 'effector'
+	getExactAnimeFx,
+	getExactAnimeReviewsFx,
+} from '../../pages/AnimePage/model'
+import { getAnimeListFx } from '../../pages/List/model'
+import { searchAnimeListFx } from '../../pages/Search/model'
 
 // events
-export const setPage = createEvent()
-export const setRequestType = createEvent()
-export const setSortType = createEvent()
-export const setGenre = createEvent()
-export const setSubtype = createEvent()
-export const setAnimeId = createEvent()
-export const setAnimeParameter = createEvent()
-export const setAnimeRequest = createEvent()
-export const setEffectType = createEvent()
-export const setTitle = createEvent()
-export const setSearchText = createEvent()
-
-// effects
-const getAnimeListBaseFx = createEffect()
-const searchAnimeListFxBase = createEffect()
-const getExactAnimeReviewsBaseFx = createEffect()
-const getExactAnimeBaseFx = createEffect()
-
-// стор для страницы запроса
-export const $page = restore(setPage, 1)
-export const { nextPageE, prevPageE } = createApi($page, {
-	nextPageE: (page) => page + 1,
-	prevPageE: (page) => {
-		if (page > 1) {
-			return page - 1
-		} else {
-			return page
-		}
-	},
-})
-
-// смена типа запроса и сортировки
-export const $requestType = restore(setRequestType, 'top')
-export const $sortType = restore(setSortType, '')
-
-// сторы для списка жанров и айди конкретного жанра
-
-export const getGenreListFx = createEffect(async () => {
-	const res = await axios.get(`https://api.jikan.moe/v4/genres/anime`)
-	return res.data.data
-})
-
-export const $genres = restore(getGenreListFx, [])
-export const $genre = restore(setGenre, '')
-
-// стор для подтипа запроса (вспомогательный стор для запроса)
-export const $subtype = createStore('').on(setSubtype, (_, subtype) => {
-	setRequestType('top')
-	setGenre('')
-	return subtype
-})
-
-// айди текущего аниме
-export const $animeId = restore(setAnimeId, 1)
-
-// вспомогательные сторы для запросов
-
-export const $animeRequest = restore(setAnimeRequest, '')
-export const $animeParameter = restore(setAnimeParameter, '')
+export const effectTypeChanged = createEvent()
+export const titleChanged = createEvent()
 
 // смена типа эффекта (вспомогательный стор для запроса)
-
-export const $effectType = restore(setEffectType, 'getAnime')
-
-// получение списка аниме
-
-getAnimeListBaseFx.use(async ({ requestType, genre, page, subtype }) => {
-	const res = await axios.get(
-		`https://api.jikan.moe/v3/${requestType}/anime${genre}/${page}${subtype}`
-	)
-	const resList = res.data.top ? res.data.top : res.data.animeId
-	return resList
-})
-export const getAnimeListFx = attach({
-	source: combine({
-		requestType: $requestType,
-		genre: $genre,
-		page: $page,
-		subtype: $subtype,
-	}),
-	mapParams: (params, source) => source,
-	effect: getAnimeListBaseFx,
-})
+export const $effectType = restore(effectTypeChanged, 'getAnime')
 
 // смена тайтла страницы
-export const $title = restore(setTitle, 'Anime List | by a03z')
-
-// поиск аниме
-export const $searchText = restore(setSearchText, '')
-
-searchAnimeListFxBase.use(async ({ page, searchText }) => {
-	const res = await axios.get(
-		`https://api.jikan.moe/v3/search/anime?q=${searchText}&page=${page}`
-	)
-	return res.data.results
-})
-export const searchAnimeListFx = attach({
-	source: combine({
-		searchText: $searchText,
-		page: $page,
-	}),
-	mapParams: (params, source) => source,
-	effect: searchAnimeListFxBase,
+export const $title = restore(titleChanged, 'Anime List | by a03z')
+$title.watch((t) => {
+	document.title = t
 })
 
-// получение конкретного аниме
-getExactAnimeBaseFx.use(async ({ id }) => {
-	const res = await axios.get(`https://api.jikan.moe/v3/anime/${id}`)
-	return res.data
-})
-export const getExactAnimeFx = attach({
-	source: combine({
-		id: $animeId,
-		request: $animeRequest,
-		parameter: $animeParameter,
-	}),
-	mapParams: (params, source) => source,
-	effect: getExactAnimeBaseFx,
-})
-// получение отзывов о конкретном аниме
-
-getExactAnimeReviewsBaseFx.use(async ({ id }) => {
-	const res = await axios.get(`https://api.jikan.moe/v3/anime/${id}/reviews`)
-	return res.data.reviews
-})
-export const getExactAnimeReviewsFx = attach({
-	source: combine({
-		id: $animeId,
-		request: $animeRequest,
-	}),
-	mapParams: (params, source) => source,
-	effect: getExactAnimeReviewsBaseFx,
-})
-// конкретное аниме для отдельное страницы
-export const $exactAnimeData = restore(getExactAnimeFx, {})
-export const $exactAnimeReviews = restore(getExactAnimeReviewsFx, [])
-
-export const $exactAnime = combine(
-	$exactAnimeData,
-	$exactAnimeReviews,
-	(exactAnime, reviews) => ({ ...exactAnime, reviews })
-)
-// получение данных об аниме каждый раз когда меняется айди от аниме
-forward({
-	from: $animeId,
-	to: [getExactAnimeFx, getExactAnimeReviewsFx],
-})
-
+// стор статуса запроса (в процессе/готов)
 export const $isFetching = combine(
 	[
 		getAnimeListFx.pending,

@@ -2,17 +2,12 @@ import React from 'react'
 import s from './list.module.scss'
 import { useList, useStore } from 'effector-react'
 import { NavLink } from 'react-router-dom'
-import {
-	$effectType,
-	$list,
-	$page,
-	getExactAnimeFx,
-	nextPageE,
-	prevPageE,
-	getAnimeListFx,
-	searchAnimeListFx,
-} from '../../entities/store/effector'
+
 import { Pagination } from '../../components/Pagination'
+import { $page, getAnimeListFx, nextPageE, prevPageE } from './model'
+import { $effectType, $list } from '../../entities/store/effector'
+import { searchAnimeListFx } from '../Search/model'
+import { getExactAnimeFx } from '../AnimePage/model'
 
 export const List = () => {
 	let page = useStore($page)
@@ -35,7 +30,6 @@ export const List = () => {
 	const list = useList($list, (el) => {
 		return (
 			<NavLink
-				href={el.url}
 				key={el.mal_id}
 				className={s.card}
 				rel='noreferrer'

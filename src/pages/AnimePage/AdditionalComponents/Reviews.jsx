@@ -5,8 +5,6 @@ export const Reviews = ({ reviews }) => {
 	const [shownReviews, setShownReviews] = useState([])
 	const [isReviewsShown, setIsReviewsShown] = useState(false)
 
-	console.log(reviews)
-
 	if (reviews.length !== 0) {
 		return (
 			<div
@@ -55,7 +53,7 @@ export const Reviews = ({ reviews }) => {
 					</button>
 				)}
 
-				{reviews.map(r => {
+				{reviews.map((r) => {
 					return (
 						<div className={s.reviewCard} key={r.mal_id}>
 							<div className={s.info}>
@@ -98,7 +96,7 @@ export const Reviews = ({ reviews }) => {
 								</div>
 							</div>
 
-							{shownReviews.some(t => t === r.mal_id) ? (
+							{shownReviews.some((t) => t === r.mal_id) ? (
 								<>
 									<p className={s.shownTextBlock}>
 										{r.content}

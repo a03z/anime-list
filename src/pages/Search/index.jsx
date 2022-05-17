@@ -2,27 +2,26 @@ import React, { useEffect } from 'react'
 import s from './search.module.scss'
 import { useForm } from 'react-hook-form'
 import { ExclamationCircleIcon, SearchIcon } from '@heroicons/react/outline'
-import {
-	searchAnimeListFx,
-	setEffectType,
-	setSearchText,
-	setTitle,
-} from '../../entities/store/effector'
+import { searchAnimeListFx, searchTextChanged } from './model'
+import { effectTypeChanged, titleChanged } from '../../entities/store/effector'
+import { useNavigate } from 'react-router-dom'
 
 export const Search = () => {
+	const navigate = useNavigate()
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
-	let onSubmit = data => {
-		setSearchText(data.searchAnime)
-		setEffectType('searchAnime')
+	let onSubmit = (data) => {
+		searchTextChanged(data.searchAnime)
+		effectTypeChanged('searchAnime')
 		searchAnimeListFx()
+		navigate('/')
 	}
 
 	useEffect(() => {
-		setTitle('Search...')
+		titleChanged('Search...')
 	}, [])
 	return (
 		<>

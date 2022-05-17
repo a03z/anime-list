@@ -13,10 +13,10 @@
 		"effector": "^21.8.11",
 		"effector-react": "^21.3.2",
 		"npkill": "^0.8.0",
-		"react": "^17.0.0",
-		"react-dom": "^17.0.0",
+		"react": "^18.0.0-rc.3",
+		"react-dom": "^18.0.0-rc.3",
 		"react-hook-form": "^7.4.2",
-		"react-router-dom": "^5.2.0",
+		"react-router-dom": "^6.3.0",
 		"reseter.css": "^1.1.2",
 		"sass": "^1.32.12"
 	},

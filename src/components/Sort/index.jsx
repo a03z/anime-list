@@ -1,22 +1,22 @@
 import React from 'react'
-import { useHistory } from 'react-router'
+import { useNavigate } from 'react-router-dom'
+import { effectTypeChanged, titleChanged } from '../../entities/store/effector'
 import {
 	getAnimeListFx,
-	setEffectType,
-	setPage,
-	setSubtype,
-	setTitle,
-} from '../../entities/store/effector'
+	pageChanged,
+	subtypeChanged,
+} from '../../pages/List/model'
+
 import s from './sort.module.scss'
 
 export const Sort = () => {
-	const history = useHistory()
+	const navigate = useNavigate()
 	const getSorted = (subtype, title) => {
-		setPage(1)
-		setSubtype(subtype)
-		setEffectType('getAnime')
-		history.push('/')
-		setTitle(title)
+		pageChanged(1)
+		subtypeChanged(subtype)
+		effectTypeChanged('getAnime')
+		navigate('/')
+		titleChanged(title)
 		getAnimeListFx()
 	}
 
@@ -58,15 +58,33 @@ export const Sort = () => {
 	return (
 		<div className={s.sort}>
 			<span>Sort by</span>
-			<button onClick={getByRating}>Rating</button>
-			<button onClick={getByPopularity}>Popularity</button>
-			<button onClick={getFavorite}>Favorite</button>
-			<button onClick={getAiring}>Airing</button>
-			<button onClick={getUpcoming}>Upcoming</button>
-			<button onClick={getTv}>Tv</button>
-			<button onClick={getMovie}>Movie</button>
-			<button onClick={getOva}>Ova</button>
-			<button onClick={getSpecial}>Special</button>
+			<button className='btn' onClick={getByRating}>
+				Rating
+			</button>
+			<button className='btn' onClick={getByPopularity}>
+				Popularity
+			</button>
+			<button className='btn' onClick={getFavorite}>
+				Favorite
+			</button>
+			<button className='btn' onClick={getAiring}>
+				Airing
+			</button>
+			<button className='btn' onClick={getUpcoming}>
+				Upcoming
+			</button>
+			<button className='btn' onClick={getTv}>
+				Tv
+			</button>
+			<button className='btn' onClick={getMovie}>
+				Movie
+			</button>
+			<button className='btn' onClick={getOva}>
+				Ova
+			</button>
+			<button className='btn' onClick={getSpecial}>
+				Special
+			</button>
 		</div>
 	)
 }
