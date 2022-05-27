@@ -9,7 +9,7 @@
 	},
 	"dependencies": {
 		"@heroicons/react": "^1.0.1",
-		"axios": "^0.21.1",
+		"axios": "^0.21.2",
 		"effector": "^21.8.11",
 		"effector-react": "^21.3.2",
 		"npkill": "^0.8.0",
