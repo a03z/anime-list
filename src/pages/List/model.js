@@ -1,7 +1,6 @@
 import axios from 'axios'
 import {
 	attach,
-	combine,
 	createApi,
 	createEffect,
 	createEvent,
@@ -45,13 +44,14 @@ getAnimeListBaseFx.use(async ({ requestType, genre, page, subtype }) => {
 	const resList = res.data.top ? res.data.top : res.data.animeId
 	return resList
 })
+
 export const getAnimeListFx = attach({
-	source: combine({
+	source: {
 		requestType: $requestType,
 		genre: $genre,
 		page: $page,
 		subtype: $subtype,
-	}),
+	},
 	mapParams: (params, source) => source,
 	effect: getAnimeListBaseFx,
 })

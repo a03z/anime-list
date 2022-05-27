@@ -2,7 +2,6 @@ import React from 'react'
 import s from './list.module.scss'
 import { useList, useStore } from 'effector-react'
 import { NavLink } from 'react-router-dom'
-
 import { Pagination } from '../../components/Pagination'
 import { $page, getAnimeListFx, nextPageE, prevPageE } from './model'
 import { $effectType, $list } from '../../entities/store/effector'
