@@ -1,38 +1,48 @@
 export const sortButtons = [
 	{
 		title: 'Rating',
-		subtitle: '',
+		filter:null,
+		subtype: '',
 	},
 	{
 		title: 'Popularity',
-		subtitle: '/bypopularity',
+		filter: 'bypopularity',
+		subtype:null
 	},
 	{
 		title: 'Favorite',
-		subtitle: '/favorite',
+		filter: 'favorite',
+		subtype:null
+
 	},
 	{
 		title: 'Airing',
-		subtitle: '/airing',
+		filter: 'airing',
+		subtype:null
 	},
 	{
 		title: 'Upcoming',
-		subtitle: '/upcoming',
+		filter: 'upcoming',
+		subtype:null
 	},
 	{
 		title: 'TV',
-		subtitle: '/tv',
+		filter: null,
+		subtype: 'tv',
 	},
 	{
 		title: 'Movie',
-		subtitle: '/movie',
+		filter: null,
+		subtype: 'movie',
 	},
 	{
 		title: 'OVA',
-		subtitle: '/ova',
+		filter: null,
+		subtype: 'ova',
 	},
 	{
 		title: 'Special',
-		subtitle: '/special',
+		filter: null,
+		subtype: 'special',
 	},
 ]
