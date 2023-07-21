@@ -19,6 +19,7 @@ export const Sort = () => {
 		navigate('/')
 		titleChanged(title)
 		getAnimeListFx()
+		// changes
 	}
 
 	return (
